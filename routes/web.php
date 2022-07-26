@@ -26,6 +26,6 @@ Route::get('practice2', function () {
 });
 
 Route::get('practice3', function () {
-    $test = 'practice3';
+    $test = 'test';
     return response($test);
 });
