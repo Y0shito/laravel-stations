@@ -18,4 +18,11 @@ class MovieController extends Controller
         $movies = Movie::all();
         return view('admin', compact('movies'));
     }
+
+
+    public function showCreate()
+    {
+        return view('create');
+    }
+
 }

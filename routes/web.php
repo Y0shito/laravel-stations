@@ -28,3 +28,4 @@ Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 Route::get('/movies', [MovieController::class, 'index']);
 
 Route::get('/admin/movies', [MovieController::class, 'showAdmin']);
+Route::get('/admin/movies/create', [MovieController::class, 'showCreate']);
