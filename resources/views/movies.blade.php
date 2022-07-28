@@ -9,7 +9,9 @@
 </head>
 
 <body>
-    <h1>TEST</h1>
+    @foreach ($movies as $movie)
+        {{ $movie }}
+    @endforeach
 </body>
 
 </html>
