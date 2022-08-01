@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class MovieController extends Controller
         return view('create');
     }
 
-    public function showStore(Request $request)
+    public function showStore(MovieRequest $request)
     {
         return view('store');
     }
