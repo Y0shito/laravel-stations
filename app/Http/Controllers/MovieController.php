@@ -25,4 +25,8 @@ class MovieController extends Controller
         return view('create');
     }
 
+    public function showStore(Request $request)
+    {
+        return view('store');
+    }
 }

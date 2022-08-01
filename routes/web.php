@@ -29,3 +29,4 @@ Route::get('/movies', [MovieController::class, 'index']);
 
 Route::get('/admin/movies', [MovieController::class, 'showAdmin']);
 Route::get('/admin/movies/create', [MovieController::class, 'showCreate']);
+Route::post('/admin/movies/store', [MovieController::class, 'showStore'])->name('store');
