@@ -17,3 +17,4 @@ test-outputs/*.xml
 .exec-once
 .exec-once-yarn
 .techtrain/config.toml
+.techtrain/config.toml
