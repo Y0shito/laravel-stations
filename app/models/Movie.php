@@ -18,8 +18,10 @@ class Movie extends Model
         DB::beginTransaction();
 
         try {
-            return Movie::create($value);
+            $movie = Movie::create($value);
             DB::commit();
+
+            return $movie;
         } catch (Exception $e) {
             DB::rollback();
         }
