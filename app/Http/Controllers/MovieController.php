@@ -26,8 +26,9 @@ class MovieController extends Controller
         return view('create');
     }
 
-    public function showStore(MovieRequest $request)
+    public function showStore(MovieRequest $request, Movie $value)
     {
-        return view('store');
+        $movie = $value->create($request->all());
+        return redirect()->route('store');
     }
 }

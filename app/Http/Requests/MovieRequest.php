@@ -24,9 +24,10 @@ class MovieRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'max:30'],
+            'title' => ['required', 'unique:movies,title', 'string', 'max:30'],
             'image_url' => ['required', 'url', 'max:2000'],
             'published_year' => ['required', 'numeric', 'between:1895,2022'],
+            'is_showing' => ['required', 'boolean'],
             'description' => ['required', 'string', 'max:100',],
         ];
     }
@@ -35,8 +36,9 @@ class MovieRequest extends FormRequest
     {
         return [
             'title.required' => 'タイトルを入力してください',
+            'title.unique' => 'このタイトルの映画はすでに登録されています',
             'title.max' => 'タイトルは30文字以内で入力してください',
-            'image_url.required' => '有効なURLで入力してください',
+            'image_url.required' => 'URLを入力してください',
             'image_url.url' => '有効なURLで入力してください',
             'published_year.required' => '公開日を入力してください',
             'published_year.numeric' => '公開日を数字で入力してください',

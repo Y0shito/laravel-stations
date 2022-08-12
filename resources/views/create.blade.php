@@ -29,7 +29,8 @@
         <input type="text" name="published_year" value="{{ old('published_year') }}">
 
         <label>公開中かどうか</label>
-        <input type="checkbox" name="is_showing">
+        <input type="hidden" name="is_showing" value="0">
+        <input type="checkbox" name="is_showing" value="1">
 
         <label>概要</label>
         <textarea name="description">{{ old('description') }}</textarea>
