@@ -28,12 +28,23 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request, Movie $value)
     {
-        $movie = $value->create($request->all());
+        $movie = $value->movieCreate($request->all());
         return redirect()->route('showStore');
     }
 
     public function showStore()
     {
         return view('store');
+    }
+
+    public function edit(Movie $id)
+    {
+        return view('edit', ['movie' => $id]);
+    }
+
+    public function update(MovieRequest $request, Movie $value)
+    {
+        $movie = $value->movieUpdate($request->all());
+        return redirect()->route('showStore');
     }
 }

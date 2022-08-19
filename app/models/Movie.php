@@ -11,9 +11,9 @@ class Movie extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'image_url', 'published_year', 'is_showing', 'description'];
+    protected $fillable = ['title', 'image_url', 'published_year', 'is_showing', 'description', 'created_at', 'updated_at'];
 
-    public static function insert(array $value)
+    public static function movieCreate(array $value)
     {
         DB::beginTransaction();
 
@@ -24,6 +24,23 @@ class Movie extends Model
             return $movie;
         } catch (Exception $e) {
             DB::rollback();
+            dd($e);
+        }
+    }
+
+    public static function movieUpdate(array $value)
+    {
+        DB::beginTransaction();
+
+        try {
+            $movie = self::find($value['id']);
+            $movie->update($value);
+            DB::commit();
+
+            return $movie;
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
         }
     }
 }

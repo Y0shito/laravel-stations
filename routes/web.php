@@ -28,6 +28,12 @@ Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 Route::get('/movies', [MovieController::class, 'index']);
 
 Route::get('/admin/movies', [MovieController::class, 'showAdmin']);
+
 Route::get('/admin/movies/create', [MovieController::class, 'showCreate']);
+
 Route::post('/admin/movies/store', [MovieController::class, 'store'])->name('store');
 Route::get('/admin/movies/store', [MovieController::class, 'showStore'])->name('showStore');
+
+Route::get('/admin/movies/{id}/edit/', [MovieController::class, 'edit'])->name('edit');
+
+Route::patch('/admin/movies/{id}/update/', [MovieController::class, 'update'])->name('update');
