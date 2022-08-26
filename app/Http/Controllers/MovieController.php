@@ -44,7 +44,7 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $value)
     {
-        $movie = $value->movieUpdate($request->all());
+        $movie = $value->movieUpdate($request);
         return redirect()->route('showStore');
     }
 }

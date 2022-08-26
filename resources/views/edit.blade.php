@@ -34,8 +34,8 @@
         <input type="text" name="published_year" value="{{ $movie->published_year }}">
 
         <label>公開中かどうか</label>
-        <input type="hidden" name="is_showing" value="0">
-        <input type="checkbox" name="is_showing" value="1">
+        <input type="hidden" name="is_showing" id="上映予定" value="0">
+        <input type="checkbox" name="is_showing" id="上映中" value="1">
 
         <label>概要</label>
         <textarea name="description">{{ $movie->description }}</textarea>
