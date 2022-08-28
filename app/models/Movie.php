@@ -18,29 +18,20 @@ class Movie extends Model
         DB::beginTransaction();
 
         try {
-            $movie = Movie::create($value);
+            self::create($value);
             DB::commit();
-
-            return $movie;
         } catch (Exception $e) {
             DB::rollback();
             dd($e);
         }
     }
 
-    public static function movieUpdate($value)
+    public static function movieUpdate(array $value)
     {
         DB::beginTransaction();
 
         try {
-            self::find($value->id)
-                ->update([
-                    'title' => $value->title,
-                    'image_url' => $value->image_url,
-                    'published_year' => $value->published_year,
-                    'is_showing' => $value->is_showing,
-                    'description' => $value->description,
-                ]);
+            self::find($value['id'])->update($value);
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();

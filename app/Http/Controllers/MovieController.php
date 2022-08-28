@@ -28,7 +28,9 @@ class MovieController extends Controller
 
     public function store(MovieRequest $request, Movie $value)
     {
-        $movie = $value->movieCreate($request->all());
+        $movie = $value->movieCreate($request
+            ->only(['id', 'title', 'image_url', 'published_year', 'is_showing', 'description']));
+
         return redirect()->route('showStore');
     }
 
@@ -44,7 +46,9 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $value)
     {
-        $movie = $value->movieUpdate($request);
+        $movie = $value->movieUpdate($request
+            ->only(['id', 'title', 'image_url', 'published_year', 'is_showing', 'description']));
+
         return redirect()->route('showStore');
     }
 }
