@@ -46,8 +46,7 @@ class MovieController extends Controller
 
     public function update(MovieRequest $request, Movie $value)
     {
-        $movie = $value->movieUpdate($request
-            ->only(['id', 'title', 'image_url', 'published_year', 'is_showing', 'description']));
+        $movie = $value->movieUpdate($request);
 
         return redirect()->route('showStore');
     }
