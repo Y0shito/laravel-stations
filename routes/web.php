@@ -27,7 +27,7 @@ Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 
 Route::get('/movies', [MovieController::class, 'index']);
 
-Route::get('/admin/movies', [MovieController::class, 'showAdmin']);
+Route::get('/admin/movies', [MovieController::class, 'showAdmin'])->name('adminMovies');
 
 Route::get('/admin/movies/create', [MovieController::class, 'showCreate']);
 
@@ -37,3 +37,6 @@ Route::get('/admin/movies/store', [MovieController::class, 'showStore'])->name('
 Route::get('/admin/movies/{id}/edit/', [MovieController::class, 'edit'])->name('edit');
 
 Route::patch('/admin/movies/{id}/update/', [MovieController::class, 'update'])->name('update');
+
+Route::delete('/admin/movies/{id}/destroy', [MovieController::class, 'delete'])->name('destroy');
+Route::get('/admin/movies/{id}/destroy', [MovieController::class, 'delete']);

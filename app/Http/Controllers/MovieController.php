@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Http\Requests\MovieRequest;
 use App\Models\Movie;
 use Illuminate\Http\Request;
@@ -49,5 +50,13 @@ class MovieController extends Controller
         $movie = $value->movieUpdate($request);
 
         return redirect()->route('showStore');
+    }
+
+    public function delete(Request $request, Movie $value)
+    {
+        $movie = $value->movieDelete($request);
+
+        return redirect()->route('adminMovies')
+            ->with(['message' => '選択した映画が削除されました']);
     }
 }

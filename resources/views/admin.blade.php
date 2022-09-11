@@ -9,6 +9,12 @@
 </head>
 
 <body>
+    @if (session()->has('message'))
+        <li>
+            {{ session('message') }}
+        </li>
+    @endif
+
     <table>
         <tr>
             <th>ID</th>
@@ -20,31 +26,51 @@
             <th>登録日時</th>
             <th>更新日時</th>
             <th>編集</th>
+            <th>削除</th>
         </tr>
-        <form method="GET">
-            @foreach ($movies as $movie)
-                <tr>
-                    <td>{{ $movie->id }}</td>
-                    <td>{{ $movie->title }}</td>
-                    <td><img src={{ $movie->image_url }} width="100"></td>
-                    <td>{{ $movie->published_year }}</td>
-                    @if ($movie->is_showing == true)
-                        <td>上映中</td>
-                    @else
-                        <td>上映予定</td>
-                    @endif
-                    <td>{{ $movie->description }}</td>
-                    <td>{{ $movie->created_at }}</td>
-                    <td>{{ $movie->updated_at }}</td>
-                    <td>
-                        <button value="{{ $movie->id }}" name="id" formaction="{{ route('edit', $movie->id) }}">編集
+
+        @foreach ($movies as $movie)
+            <tr>
+                <td>{{ $movie->id }}</td>
+                <td>{{ $movie->title }}</td>
+                <td><img src={{ $movie->image_url }} width="100"></td>
+                <td>{{ $movie->published_year }}</td>
+                @if ($movie->is_showing == true)
+                    <td>上映中</td>
+                @else
+                    <td>上映予定</td>
+                @endif
+                <td>{{ $movie->description }}</td>
+                <td>{{ $movie->created_at }}</td>
+                <td>{{ $movie->updated_at }}</td>
+                <td>
+                    <form method="GET">
+                        <button value="{{ $movie->id }}" name="id" formaction="{{ route('edit', $movie->id) }}">
+                            編集
                         </button>
-                    </td>
-                </tr>
-            @endforeach
-        </form>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button value="{{ $movie->id }}" name="id" onclick="return articleDelete();"
+                            formaction="{{ route('destroy', $movie->id) }}">
+                            削除
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        @endforeach
     </table>
 
 </body>
+<script>
+    'use strict';
+    const articleDelete = () => {
+        var ret = confirm("削除を実行しますか？");
+        return ret;
+    }
+</script>
 
 </html>

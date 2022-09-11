@@ -44,4 +44,23 @@ class Movie extends Model
             dd($e);
         }
     }
+
+    public static function movieDelete($value)
+    {
+        DB::beginTransaction();
+
+        $movie = self::find($value->id);
+
+        if (is_null($movie)) {
+            return abort(404);
+        }
+
+        try {
+            self::destroy($value->id);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+    }
 }
