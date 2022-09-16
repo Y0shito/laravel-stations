@@ -9,10 +9,25 @@ use Illuminate\Http\Request;
 
 class MovieController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $movies = Movie::all();
-        return view('movies', compact('movies'));
+        if (empty($request->keyword) && is_null($request->is_showing)) {
+            $movies = Movie::all();
+            return view('movies', compact('movies'));
+        }
+
+        $searchedMovies = Movie::query();
+
+        if (!empty($request->keyword)) {
+            $searchedMovies->where('title', 'like', "%$request->keyword%")
+                ->orWhere('description', 'like', "%$request->keyword%");
+        }
+
+        if (!is_null($request->is_showing)) {
+            $searchedMovies->where('is_showing', $request->is_showing);
+        }
+
+        return view('movies', ['searchedMovies' => $searchedMovies->get()]);
     }
 
     public function showAdmin()
