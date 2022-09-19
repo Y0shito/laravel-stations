@@ -13,39 +13,33 @@
 
     <table style="text-align: center;">
         <tr>
-            <th></th>
-            <th></th>
+            <th>.</th>
+            <th>.</th>
             <th>スクリーン</th>
-            <th></th>
-            <th></th>
+            <th>.</th>
+            <th>.</th>
         </tr>
         <tr>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
-            <td>-</td>
+            <td>:-:</td>
+            <td>:-:</td>
+            <td>:-:</td>
+            <td>:-:</td>
+            <td>:-:</td>
         </tr>
         <tr>
-            <td>a-1</td>
-            <td>a-2</td>
-            <td>a-3</td>
-            <td>a-4</td>
-            <td>a-5</td>
+            @foreach ($sheetRowA as $sheet)
+                <td>{{ "{$sheet->row}-{$sheet->column}" }}</td>
+            @endforeach
         </tr>
         <tr>
-            <td>b-1</td>
-            <td>b-2</td>
-            <td>b-3</td>
-            <td>b-4</td>
-            <td>b-5</td>
+            @foreach ($sheetRowB as $sheet)
+                <td>{{ "{$sheet->row}-{$sheet->column}" }}</td>
+            @endforeach
         </tr>
         <tr>
-            <td>c-1</td>
-            <td>c-2</td>
-            <td>c-3</td>
-            <td>c-4</td>
-            <td>c-5</td>
+            @foreach ($sheetRowC as $sheet)
+                <td>{{ "{$sheet->row}-{$sheet->column}" }}</td>
+            @endforeach
         </tr>
     </table>
 </body>
