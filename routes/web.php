@@ -43,3 +43,5 @@ Route::delete('/admin/movies/{id}/destroy', [MovieController::class, 'delete'])-
 Route::get('/admin/movies/{id}/destroy', [MovieController::class, 'delete']);
 
 Route::get('/sheets', [SheetController::class, 'showSheetsPage'])->name('sheets');
+
+Route::get('/movies/{id}', [MovieController::class, 'showMovie'])->name('movie');

@@ -74,4 +74,9 @@ class MovieController extends Controller
         return redirect()->route('adminMovies')
             ->with(['message' => '選択した映画が削除されました']);
     }
+
+    public function showMovie()
+    {
+        return view('movie');
+    }
 }
