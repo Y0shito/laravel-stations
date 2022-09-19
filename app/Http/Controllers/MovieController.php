@@ -75,8 +75,8 @@ class MovieController extends Controller
             ->with(['message' => '選択した映画が削除されました']);
     }
 
-    public function showMovie()
+    public function showMovie(Movie $id)
     {
-        return view('movie');
+        return view('movie', ['movie' => $id]);
     }
 }

@@ -36,11 +36,7 @@
                     <td>{{ $movie->title }}</td>
                     <td><img src={{ $movie->image_url }} width="100"></td>
                     <td>{{ $movie->published_year }}</td>
-                    @if ($movie->is_showing == true)
-                        <td>上映中</td>
-                    @else
-                        <td>上映予定</td>
-                    @endif
+                    <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}<td>
                     <td>{{ $movie->description }}</td>
                     <td>{{ $movie->created_at }}</td>
                     <td>{{ $movie->updated_at }}</td>
@@ -55,11 +51,7 @@
                     <td>{{ $movie->title }}</td>
                     <td><img src={{ $movie->image_url }} width="100"></td>
                     <td>{{ $movie->published_year }}</td>
-                    @if ($movie->is_showing == true)
-                        <td>上映中</td>
-                    @else
-                        <td>上映予定</td>
-                    @endif
+                    <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}<td>
                     <td>{{ $movie->description }}</td>
                     <td>{{ $movie->created_at }}</td>
                     <td>{{ $movie->updated_at }}</td>
