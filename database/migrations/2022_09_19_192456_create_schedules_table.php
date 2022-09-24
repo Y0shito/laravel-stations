@@ -18,8 +18,8 @@ return new class extends Migration
             $table->unsignedBigInteger('movie_id')->comment('列');
             $table->time('start_time')->comment('上映開始時刻');
             $table->time('end_time')->comment('上映終了時刻');
-            $table->dateTime('created_at')->comment('作成日時');
-            $table->dateTime('updated_at')->comment('更新日時');
+            $table->dateTime('created_at')->nullable()->comment('作成日時');
+            $table->dateTime('updated_at')->nullable()->comment('更新日時');
 
             $table->foreign('movie_id')->references('id')->on('movies');
         });

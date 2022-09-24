@@ -63,4 +63,9 @@ class Movie extends Model
             dd($e);
         }
     }
+
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
 }

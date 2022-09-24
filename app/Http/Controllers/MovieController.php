@@ -75,8 +75,9 @@ class MovieController extends Controller
             ->with(['message' => '選択した映画が削除されました']);
     }
 
-    public function showMovie(Movie $id)
+    public function showMovie($id)
     {
-        return view('movie', ['movie' => $id]);
+        $movie = Movie::with('schedules')->find($id);
+        return view('movie', compact('movie'));
     }
 }

@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     use HasFactory;
+
+    protected $dates = ['start_time', 'end_time'];
 }
