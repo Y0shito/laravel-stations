@@ -68,4 +68,9 @@ class Movie extends Model
     {
         return $this->hasMany(Schedule::class);
     }
+
+    public static function getMoviesAndSchedules()
+    {
+        return self::with('schedules');
+    }
 }
