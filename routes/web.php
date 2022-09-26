@@ -44,6 +44,7 @@ Route::delete('/admin/movies/{id}/destroy', [MovieController::class, 'delete'])-
 Route::get('/admin/movies/{id}/destroy', [MovieController::class, 'delete']);
 
 Route::get('/admin/schedules', [ScheduleController::class, 'showSchedules'])->name('schedules');
+Route::get('/admin/schedules/{id}', [ScheduleController::class, 'showScheduleManage'])->name('scheduleManage');
 
 Route::get('/sheets', [SheetController::class, 'showSheetsPage'])->name('sheets');
 

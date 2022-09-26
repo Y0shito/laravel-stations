@@ -32,6 +32,9 @@
                     <td>{{ $schedule->updated_at }}</td>
                 </tr>
             </table>
+            <a href="{{ route('scheduleManage', ['id' => $schedule->movie_id]) }}">
+                <p>「{{ $movie->title }}」のスケジュール管理へ</p>
+            </a>
             <br>
         @endforeach
     @endforeach
