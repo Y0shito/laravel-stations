@@ -31,7 +31,11 @@
 
         @foreach ($movies as $movie)
             <tr>
-                <td>{{ $movie->id }}</td>
+                <td>
+                    <a href="{{ route('adminMovieId', ['id' => $movie->id]) }}">
+                        {{ $movie->id }}
+                    </a>
+                </td>
                 <td>{{ $movie->title }}</td>
                 <td><img src={{ $movie->image_url }} width="100"></td>
                 <td>{{ $movie->published_year }}</td>

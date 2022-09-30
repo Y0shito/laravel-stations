@@ -80,4 +80,10 @@ class MovieController extends Controller
         $movie = Movie::with('schedules')->find($id);
         return view('movie', compact('movie'));
     }
+
+    public function showAdminMovie($id)
+    {
+        $movie = Movie::with('schedules')->find($id);
+        return view('admin_movies_id', compact('movie'));
+    }
 }
