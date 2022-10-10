@@ -17,8 +17,18 @@
     <p>概要：{{ $movie->description }}</p>
 
     @foreach ($movie->schedules as $schedule)
-        <p>上映開始時刻：{{ $schedule->start_time->format('h:m') }}</p>
-        <p>上映終了時刻：{{ $schedule->end_time->format('h:m') }}</p>
+        <table border="1">
+            <tr>
+                <th>開始日付</th>
+                <th>開始時間</th>
+                <th>終了時刻</th>
+            </tr>
+            <tr>
+                <td>{{ $schedule->start_time_date->format('Y-m-d') }}</td>
+                <td>{{ $schedule->start_time_time->format('h:m') }}</td>
+                <td>{{ $schedule->end_time_time->format('h:m') }}</td>
+            </tr>
+        </table>
     @endforeach
 
     <p>作成日：{{ $movie->created_at }}</p>
