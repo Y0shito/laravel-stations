@@ -11,6 +11,14 @@
 <body>
     <h2>{{ $movie->title }}の上映スケジュール管理</h2>
 
+    <form method="GET">
+        <button value="{{ $movie->id }}" name="movie_id">
+            新規作成
+        </button>
+    </form>
+
+    <br>
+
     @foreach ($movie->schedules as $schedule)
         <table border="1">
             <tr>
@@ -20,6 +28,8 @@
                 <th>終了時刻</th>
                 <th>作成日時</th>
                 <th>更新日時</th>
+                <th>編集</th>
+                <th>削除</th>
             </tr>
             <tr>
                 <td>{{ $schedule->id }}</td>
@@ -28,10 +38,33 @@
                 <td>{{ $schedule->end_time->format('h:m') }}</td>
                 <td>{{ $schedule->created_at }}</td>
                 <td>{{ $schedule->updated_at }}</td>
+                <td>
+                    <form method="GET">
+                        <button value="{{ $movie->id }}" name="id">
+                            編集
+                        </button>
+                    </form>
+                </td>
+                <td>
+                    <form method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button value="{{ $movie->id }}" name="id" onclick="return articleDelete();">
+                            削除
+                        </button>
+                    </form>
             </tr>
         </table>
     @endforeach
 </body>
+
+<script>
+    'use strict';
+    const articleDelete = () => {
+        var ret = confirm("削除を実行しますか？");
+        return ret;
+    }
+</script>
 
 
 </html>
