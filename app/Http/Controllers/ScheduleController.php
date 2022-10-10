@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Movie;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 
 class ScheduleController extends Controller
@@ -17,5 +18,11 @@ class ScheduleController extends Controller
     {
         $movie = Movie::getMoviesAndSchedules()->whereId($id)->first();
         return view('schedule_Manage', compact('movie'));
+    }
+
+    public function scheduleDelete(Request $request, Schedule $value)
+    {
+        $schedule = $value->scheduleDelete($request);
+        return back();
     }
 }

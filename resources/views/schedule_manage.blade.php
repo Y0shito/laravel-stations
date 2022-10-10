@@ -49,7 +49,8 @@
                     <form method="POST">
                         @csrf
                         @method('DELETE')
-                        <button value="{{ $movie->id }}" name="id" onclick="return articleDelete();">
+                        <button value="{{ $schedule->id }}" name="id" onclick="return articleDelete();"
+                            formaction="{{ route('scheduleDestroy', $schedule->id) }}">
                             削除
                         </button>
                     </form>
