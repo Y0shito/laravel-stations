@@ -11,7 +11,7 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    protected $dates = ['start_time', 'end_time'];
+    protected $dates = ['start_time_date', 'start_time_time', 'end_time_date', 'end_time_time'];
 
     public static function scheduleDelete($value)
     {
