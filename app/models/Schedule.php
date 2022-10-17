@@ -11,9 +11,23 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    protected $dates = ['start_time_date', 'start_time_time', 'end_time_date', 'end_time_time'];
+    protected $fillable = ['movie_id', 'start_time', 'end_time'];
+    protected $dates = ['start_time', 'end_time'];
 
-    public static function scheduleDelete($value)
+    public static function scheduleStoreOnModel(array $value)
+    {
+        DB::beginTransaction();
+
+        try {
+            self::create($value);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+    }
+
+    public static function scheduleDeleteOnModel($value)
     {
         DB::beginTransaction();
 
