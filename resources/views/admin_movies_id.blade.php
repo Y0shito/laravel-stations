@@ -22,9 +22,7 @@
             <tr>
                 <th>ID</th>
                 <th>作品ID</th>
-                <th>開始日付</th>
-                <th>開始時間</th>
-                <th>終了日付</th>
+                <th>開始時刻</th>
                 <th>終了時刻</th>
                 <th>作成日時</th>
                 <th>更新日時</th>
@@ -32,10 +30,8 @@
             <tr>
                 <td>{{ $schedule->id }}</td>
                 <td>{{ $schedule->movie_id }}</td>
-                <td>{{ $schedule->start_time_date->format('Y-m-d') }}</td>
-                <td>{{ $schedule->start_time_time->format('h:m') }}</td>
-                <td>{{ $schedule->end_time_date->format('Y-m-d') }}</td>
-                <td>{{ $schedule->end_time_time->format('h:m') }}</td>
+                <td>{{ $schedule->start_time }}</td>
+                <td>{{ $schedule->end_time }}</td>
                 <td>{{ $schedule->created_at }}</td>
                 <td>{{ $schedule->updated_at }}</td>
             </tr>

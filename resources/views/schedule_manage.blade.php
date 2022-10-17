@@ -11,35 +11,27 @@
 <body>
     <h2>{{ $movie->title }}の上映スケジュール管理</h2>
 
-    <form method="GET">
-        <button value="{{ $movie->id }}" name="movie_id">
-            新規作成
-        </button>
-    </form>
+    <a href="{{ route('scheduleCreate', $movie->id) }}">新規作成</a>
 
     <br>
 
-    @foreach ($movie->schedules as $schedule)
-        <table border="1">
-            <tr>
-                <th>ID</th>
-                <th>作品ID</th>
-                <th>開始日付</th>
-                <th>開始時間</th>
-                <th>終了日時</th>
-                <th>終了時間</th>
-                <th>作成日時</th>
-                <th>更新日時</th>
-                <th>編集</th>
-                <th>削除</th>
-            </tr>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>作品ID</th>
+            <th>開始時刻</th>
+            <th>終了時刻</th>
+            <th>作成日時</th>
+            <th>更新日時</th>
+            <th>編集</th>
+            <th>削除</th>
+        </tr>
+        @foreach ($movie->schedules as $schedule)
             <tr>
                 <td>{{ $schedule->id }}</td>
                 <td>{{ $schedule->movie_id }}</td>
-                <td>{{ $schedule->start_time_date->format('Y-m-d') }}</td>
-                <td>{{ $schedule->start_time_time->format('h:m') }}</td>
-                <td>{{ $schedule->end_time_date->format('Y-m-d') }}</td>
-                <td>{{ $schedule->end_time_time->format('h:m') }}</td>
+                <td>{{ $schedule->start_time }}</td>
+                <td>{{ $schedule->end_time }}</td>
                 <td>{{ $schedule->created_at }}</td>
                 <td>{{ $schedule->updated_at }}</td>
                 <td>
@@ -59,8 +51,8 @@
                         </button>
                     </form>
             </tr>
-        </table>
-    @endforeach
+        @endforeach
+    </table>
 </body>
 
 <script>
