@@ -24,9 +24,9 @@
                 <th>終了時刻</th>
             </tr>
             <tr>
-                <td>{{ $schedule->start_time }}</td>
-                <td>{{ $schedule->start_time }}</td>
-                <td>{{ $schedule->end_time }}</td>
+                <td>{{ $schedule->start_time->format('m/d') }}</td>
+                <td>{{ $schedule->start_time->format('h:m') }}</td>
+                <td>{{ $schedule->end_time->format('h:m') }}</td>
             </tr>
         </table>
     @endforeach

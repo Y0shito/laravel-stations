@@ -39,6 +39,23 @@ class ScheduleController extends Controller
         return redirect()->route('scheduleManage', ['id' => $request->movie_id]);
     }
 
+    public function showScheduleEdit(Schedule $scheduleId)
+    {
+        return view('schedule_edit', ['schedule' => $scheduleId]);
+    }
+
+    public function scheduleUpdate(ScheduleRequest $request, Schedule $value)
+    {
+        $schedule = [
+            'id' => $request->id,
+            'start_time' => "$request->start_time_date $request->start_time_time",
+            'end_time' => "$request->end_time_date $request->end_time_time",
+        ];
+
+        $schedule = $value->scheduleUpdateOnModel($schedule);
+        return redirect()->route('scheduleManage', ['id' => $request->movie_id]);
+    }
+
     public function scheduleDelete(Request $request, Schedule $value)
     {
         $schedule = $value->scheduleDeleteOnModel($request);

@@ -11,7 +11,7 @@ class Schedule extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['movie_id', 'start_time', 'end_time'];
+    protected $fillable = ['id', 'movie_id', 'start_time', 'end_time'];
     protected $dates = ['start_time', 'end_time'];
 
     public static function scheduleStoreOnModel(array $value)
@@ -20,6 +20,19 @@ class Schedule extends Model
 
         try {
             self::create($value);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+    }
+
+    public static function scheduleUpdateOnModel(array $value)
+    {
+        DB::beginTransaction();
+
+        try {
+            self::find($value['id'])->update($value);
             DB::commit();
         } catch (Exception $e) {
             DB::rollback();

@@ -36,7 +36,7 @@
                 <td>{{ $schedule->updated_at }}</td>
                 <td>
                     <form method="GET">
-                        <button value="{{ $movie->id }}" name="id">
+                        <button formaction="{{ route('scheduleEdit', $schedule->id) }}">
                             編集
                         </button>
                     </form>
@@ -45,7 +45,7 @@
                     <form method="POST">
                         @csrf
                         @method('DELETE')
-                        <button value="{{ $schedule->id }}" name="id" onclick="return articleDelete();"
+                        <button onclick="return articleDelete();"
                             formaction="{{ route('scheduleDestroy', $schedule->id) }}">
                             削除
                         </button>

@@ -50,6 +50,8 @@ Route::post('/admin/movies/{id}/schedules/store', [ScheduleController::class, 's
 
 Route::get('/admin/schedules', [ScheduleController::class, 'showSchedules'])->name('schedules');
 Route::get('/admin/schedules/{id}', [ScheduleController::class, 'showScheduleManage'])->name('scheduleManage');
+Route::get('/admin/schedules/{scheduleId}/edit', [ScheduleController::class, 'showScheduleEdit'])->name('scheduleEdit');
+Route::patch('/admin/schedules/{id}/update', [ScheduleController::class, 'ScheduleUpdate'])->name('scheduleUpdate');
 Route::delete('/admin/schedules/{id}/destroy', [ScheduleController::class, 'scheduleDelete'])->name('scheduleDestroy');
 
 Route::get('/sheets', [SheetController::class, 'showSheetsPage'])->name('sheets');
