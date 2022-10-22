@@ -22,11 +22,18 @@
                 <th>開始日付</th>
                 <th>開始時間</th>
                 <th>終了時刻</th>
+                <th>予約</th>
             </tr>
             <tr>
                 <td>{{ $schedule->start_time->format('m/d') }}</td>
                 <td>{{ $schedule->start_time->format('h:m') }}</td>
                 <td>{{ $schedule->end_time->format('h:m') }}</td>
+                <td>
+                    <form
+                        action="{{ route('reserveSheet', ['movie_id' => $movie->id, 'schedule_id' => $schedule->id]) }}">
+                        <button name="date" value="{{ $schedule->start_time->format('Y-m-d') }}">座席を予約する</button>
+                    </form>
+                </td>
             </tr>
         </table>
     @endforeach

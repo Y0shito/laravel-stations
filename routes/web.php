@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SheetController;
 
@@ -28,23 +29,19 @@ Route::get('/practice3', [PracticeController::class, 'sample3']);
 Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 
 Route::get('/movies', [MovieController::class, 'index'])->name('index');
+Route::get('/movies/{id}', [MovieController::class, 'showMovie'])->name('movie');
 
 Route::get('/admin/movies', [MovieController::class, 'showAdmin'])->name('adminMovies');
 
 Route::get('/admin/movies/create', [MovieController::class, 'showCreate']);
-
 Route::post('/admin/movies/store', [MovieController::class, 'store'])->name('store');
 Route::get('/admin/movies/store', [MovieController::class, 'showStore'])->name('showStore');
 
 Route::get('/admin/movies/{id}', [MovieController::class, 'showAdminMovie'])->name('adminMovieId');
-
 Route::get('/admin/movies/{id}/edit/', [MovieController::class, 'edit'])->name('edit');
-
 Route::patch('/admin/movies/{id}/update/', [MovieController::class, 'update'])->name('update');
-
 Route::delete('/admin/movies/{id}/destroy', [MovieController::class, 'delete'])->name('destroy');
 Route::get('/admin/movies/{id}/destroy', [MovieController::class, 'delete']);
-
 Route::get('/admin/movies/{id}/schedules/create', [ScheduleController::class, 'scheduleCreate'])->name('scheduleCreate');
 Route::post('/admin/movies/{id}/schedules/store', [ScheduleController::class, 'scheduleStore'])->name('scheduleStore');
 
@@ -56,4 +53,4 @@ Route::delete('/admin/schedules/{id}/destroy', [ScheduleController::class, 'sche
 
 Route::get('/sheets', [SheetController::class, 'showSheetsPage'])->name('sheets');
 
-Route::get('/movies/{id}', [MovieController::class, 'showMovie'])->name('movie');
+Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets', [ReservationController::class, 'showSheets'])->name('reserveSheet');
