@@ -9,6 +9,12 @@
 </head>
 
 <body>
+    @if (session()->has('message'))
+        <li>
+            {{ session('message') }}
+        </li>
+    @endif
+
     <h2>座席表</h2>
     <p>座席を選んでください</p>
 
@@ -33,7 +39,7 @@
                     <td>
                         <button
                             formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
-                            name="sheetId" value="{{ "{$sheet->row}-{$sheet->column}" }}">
+                            name="sheetId" value="{{ $sheet->id }}">
                             {{ "{$sheet->row}-{$sheet->column}" }}
                         </button>
                     </td>
@@ -44,7 +50,7 @@
                     <td>
                         <button
                             formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
-                            name="sheetId" value="{{ "{$sheet->row}-{$sheet->column}" }}">
+                            name="sheetId" value="{{ $sheet->id }}">
                             {{ "{$sheet->row}-{$sheet->column}" }}
                         </button>
                     </td>
@@ -55,7 +61,7 @@
                     <td>
                         <button
                             formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
-                            name="sheetId" value="{{ "{$sheet->row}-{$sheet->column}" }}">
+                            name="sheetId" value="{{ $sheet->id }}">
                             {{ "{$sheet->row}-{$sheet->column}" }}
                         </button>
                     </td>

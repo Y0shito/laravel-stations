@@ -54,5 +54,6 @@ Route::delete('/admin/schedules/{id}/destroy', [ScheduleController::class, 'sche
 Route::get('/sheets', [SheetController::class, 'showSheetsPage'])->name('sheets');
 
 Route::get('/movies/{movie_id}/schedules/{schedule_id}/sheets', [ReservationController::class, 'showSheets'])->name('reserveSheet');
-
 Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create', [ReservationController::class, 'showReserveCreate'])->name('reserveCreate');
+
+Route::post('/reservations/store', [ReservationController::class, 'reserveStore'])->name('reserveStore');

@@ -9,6 +9,12 @@
 </head>
 
 <body>
+    @if (session()->has('message'))
+        <li>
+            {{ session('message') }}
+        </li>
+    @endif
+
     <h2>{{ $movie->title }}</h2>
     <img src={{ $movie->image_url }} width="400">
     <p>ID：{{ $movie->id }}</p>
