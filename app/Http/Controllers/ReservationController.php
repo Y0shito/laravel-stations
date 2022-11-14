@@ -39,6 +39,14 @@ class ReservationController extends Controller
             abort(400);
         }
 
+        $checkReserved = Sheet::withCount(['reservations' => function ($query) use ($schedule_id) {
+            $query->where('schedule_id', $schedule_id);
+        }])->find($request->sheetId);
+
+        if ($checkReserved->reservations_count === 1) {
+            abort(400);
+        }
+
         $value = $request;
         $getSheetName = Sheet::find($request->sheetId, ['column', 'row']);
 
