@@ -18,6 +18,8 @@ class Reservation extends Model
         return $this->belongsTo(Schedule::class);
     }
 
+    //Sが大文字になっている
+
     public function sheet()
     {
         return $this->belongsTo(Sheet::class);

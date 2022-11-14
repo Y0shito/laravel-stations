@@ -1,0 +1,10 @@
+.sheets {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .sheets button {
+    width: 18%;
+    padding: 10px;
+    margin: 10px;
+  }

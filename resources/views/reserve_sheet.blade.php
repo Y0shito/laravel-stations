@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/reserve_sheet.css') }}">
     <title>座席予約</title>
 </head>
 
@@ -19,56 +20,23 @@
     <p>座席を選んでください</p>
 
     <form method="GET">
-        <table border="1" style="text-align: center;">
-            <tr>
-                <th>.</th>
-                <th>.</th>
-                <th>スクリーン</th>
-                <th>.</th>
-                <th>.</th>
-            </tr>
-            <tr>
-                <td>:-:</td>
-                <td>:-:</td>
-                <td>:-:</td>
-                <td>:-:</td>
-                <td>:-:</td>
-            </tr>
-            <tr>
-                @foreach ($sheetRowA as $sheet)
-                    <td>
-                        <button
-                            formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
-                            name="sheetId" value="{{ $sheet->id }}">
-                            {{ "{$sheet->row}-{$sheet->column}" }}
-                        </button>
-                    </td>
-                @endforeach
-            </tr>
-            <tr>
-                @foreach ($sheetRowB as $sheet)
-                    <td>
-                        <button
-                            formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
-                            name="sheetId" value="{{ $sheet->id }}">
-                            {{ "{$sheet->row}-{$sheet->column}" }}
-                        </button>
-                    </td>
-                @endforeach
-            </tr>
-            <tr>
-                @foreach ($sheetRowC as $sheet)
-                    <td>
-                        <button
-                            formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
-                            name="sheetId" value="{{ $sheet->id }}">
-                            {{ "{$sheet->row}-{$sheet->column}" }}
-                        </button>
-                    </td>
-                @endforeach
-            </tr>
-        </table>
-
+        <div class="sheets">
+            @foreach ($sheets as $sheet)
+                @if ($sheet->reservations_count === 1)
+                    <button
+                        formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
+                        name="sheetId" value="{{ $sheet->id }}" disabled>
+                        {{ "{$sheet->row}-{$sheet->column}" }}
+                    </button>
+                @else
+                    <button
+                        formaction="{{ route('reserveCreate', ['movie_id' => $movie_id, 'schedule_id' => $schedule_id]) }}"
+                        name="sheetId" value="{{ $sheet->id }}">
+                        {{ "{$sheet->row}-{$sheet->column}" }}
+                    </button>
+                @endif
+            @endforeach
+        </div>
         <input type="hidden" name="date" value="{{ $reservedDate }}">
     </form>
 </body>

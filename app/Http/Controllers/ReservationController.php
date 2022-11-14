@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use Exception;
 use App\Models\Sheet;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Http\Requests\ReservationRequest;
-use Exception;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -18,11 +19,12 @@ class ReservationController extends Controller
         }
 
         $reservedDate = $request->date;
-        $sheetRowA = Sheet::where('row', 'a')->get();
-        $sheetRowB = Sheet::where('row', 'b')->get();
-        $sheetRowC = Sheet::where('row', 'c')->get();
 
-        return view('reserve_sheet', compact(['sheetRowA', 'sheetRowB', 'sheetRowC', 'reservedDate', 'movie_id', 'schedule_id']));
+        $sheets = Sheet::withCount(['reservations' => function ($query) use ($schedule_id) {
+            $query->where('schedule_id', $schedule_id);
+        }])->get();
+
+        return view('reserve_sheet', compact(['sheets', 'reservedDate', 'movie_id', 'schedule_id']));
     }
 
     // 上記だと予約日を変数に入れ、compactへ格納しているが、項目が多いと冗長になる
