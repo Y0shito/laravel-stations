@@ -7,7 +7,6 @@ use App\Models\Sheet;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Http\Requests\ReservationRequest;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
@@ -20,9 +19,7 @@ class ReservationController extends Controller
 
         $reservedDate = $request->date;
 
-        $sheets = Sheet::withCount(['reservations' => function ($query) use ($schedule_id) {
-            $query->where('schedule_id', $schedule_id);
-        }])->get();
+        $sheets = Sheet::checkReservation($schedule_id)->get();
 
         return view('reserve_sheet', compact(['sheets', 'reservedDate', 'movie_id', 'schedule_id']));
     }
@@ -39,18 +36,15 @@ class ReservationController extends Controller
             abort(400);
         }
 
-        $checkReserved = Sheet::withCount(['reservations' => function ($query) use ($schedule_id) {
-            $query->where('schedule_id', $schedule_id);
-        }])->find($request->sheetId);
+        $checkReserved = Sheet::checkReservation($schedule_id)->find($request->sheetId);
 
         if ($checkReserved->reservations_count === 1) {
             abort(400);
         }
 
-        $value = $request;
         $getSheetName = Sheet::find($request->sheetId, ['column', 'row']);
 
-        return view('reserve_create', ['value' => $value, 'sheetName' => "{$getSheetName->row}-{$getSheetName->column}"]);
+        return view('reserve_create', ['value' => $request, 'sheetName' => "{$getSheetName->row}-{$getSheetName->column}"]);
     }
 
     public function reserveStore(ReservationRequest $request, Reservation $value)

@@ -13,4 +13,11 @@ class Sheet extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public static function checkReservation($schedule_id)
+    {
+        return self::withCount(['reservations' => function ($query) use ($schedule_id) {
+            $query->where('schedule_id', $schedule_id);
+        }]);
+    }
 }
