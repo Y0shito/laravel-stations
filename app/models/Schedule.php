@@ -58,4 +58,9 @@ class Schedule extends Model
             dd($e);
         }
     }
+
+    public function movie()
+    {
+        return $this->belongsTo(Movie::class);
+    }
 }

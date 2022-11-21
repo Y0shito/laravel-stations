@@ -13,16 +13,16 @@
 
     @foreach ($movies as $movie)
         <h2>ID：{{ $movie->id }} {{ $movie->title }}</h2>
-        @foreach ($movie->schedules as $schedule)
-            <table border="1">
-                <tr>
-                    <th>ID</th>
-                    <th>作品ID</th>
-                    <th>開始時刻</th>
-                    <th>終了時刻</th>
-                    <th>作成日時</th>
-                    <th>更新日時</th>
-                </tr>
+        <table border="1">
+            <tr>
+                <th>ID</th>
+                <th>作品ID</th>
+                <th>開始時刻</th>
+                <th>終了時刻</th>
+                <th>作成日時</th>
+                <th>更新日時</th>
+            </tr>
+            @foreach ($movie->schedules as $schedule)
                 <tr>
                     <td>{{ $schedule->id }}</td>
                     <td>{{ $schedule->movie_id }}</td>
@@ -31,12 +31,12 @@
                     <td>{{ $schedule->created_at }}</td>
                     <td>{{ $schedule->updated_at }}</td>
                 </tr>
-            </table>
-            <a href="{{ route('scheduleManage', ['id' => $schedule->movie_id]) }}">
-                <p>「{{ $movie->title }}」のスケジュール管理へ</p>
-            </a>
-            <br>
-        @endforeach
+            @endforeach
+        </table>
+        <a href="{{ route('scheduleManage', ['id' => $schedule->movie_id]) }}">
+            <p>「{{ $movie->title }}」のスケジュール管理へ</p>
+        </a>
+        <br>
     @endforeach
 </body>
 
