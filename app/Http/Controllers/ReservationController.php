@@ -71,4 +71,10 @@ class ReservationController extends Controller
                 ->with(['message' => 'その座席はすでに予約済みです']);
         }
     }
+
+    public function showReservations()
+    {
+        $reservations = Reservation::notReleases()->with(['sheet', 'schedule.movie'])->get();
+        return view('admin_reservations', compact('reservations'));
+    }
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Exception;
+use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -36,5 +37,10 @@ class Reservation extends Model
             DB::rollback();
             throw new Exception($e);
         }
+    }
+
+    public function scopeNotReleases($query)
+    {
+        $query->whereDate('date', '>', CarbonImmutable::now());
     }
 }
