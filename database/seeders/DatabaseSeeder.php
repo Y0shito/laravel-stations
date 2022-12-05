@@ -13,6 +13,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call([MovieSeeder::class, SheetsSeeder::class, ScheduleSeeder::class, ReservationSeeder::class]);
+        // $this->call([MovieSeeder::class, SheetsSeeder::class, ScheduleSeeder::class, ReservationSeeder::class]);
+        $this->call([MovieSeeder::class, SheetsSeeder::class, ScheduleSeeder::class]);
     }
 }

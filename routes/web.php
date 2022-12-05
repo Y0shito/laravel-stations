@@ -58,4 +58,6 @@ Route::get('/movies/{movie_id}/schedules/{schedule_id}/reservations/create', [Re
 
 Route::post('/reservations/store', [ReservationController::class, 'reserveStore'])->name('reserveStore');
 
-Route::get('/admin/reservations/', [ReservationController::class, 'showReservations'])->name('adminReservations');
+Route::get('/admin/reservations', [ReservationController::class, 'showReservations'])->name('adminReservations');
+Route::get('/admin/reservations/create', [ReservationController::class, 'showReservationsCreate'])->name('adminReservationsCreate');
+Route::post('/admin/reservations/store', [ReservationController::class, 'adminReservationsStore'])->name('adminReservationsStore');

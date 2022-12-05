@@ -10,7 +10,14 @@
 
 <body>
     <h2>予約一覧</h2>
-    <a href="">予約の新規作成</a>
+
+    @if (session('message'))
+        {{ session('message') }}
+    @endif
+
+    <br>
+
+    <a href="{{ route('adminReservationsCreate') }}">予約の新規作成</a>
     <table border="1">
         <tr>
             <th>予約ID</th>

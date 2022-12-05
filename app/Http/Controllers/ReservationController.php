@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use App\Models\Movie;
 use App\Models\Sheet;
 use App\Models\Reservation;
 use App\Models\Schedule;
@@ -74,7 +75,40 @@ class ReservationController extends Controller
 
     public function showReservations()
     {
-        $reservations = Reservation::notReleases()->with(['sheet', 'schedule.movie'])->get();
+        // テスト時有効にする
+        // $reservations = Reservation::notReleases()->with(['sheet', 'schedule.movie'])->get();
+        $reservations = Reservation::with(['sheet', 'schedule.movie'])->get();
         return view('admin_reservations', compact('reservations'));
+    }
+
+    public function showReservationsCreate()
+    {
+        $schedules = Schedule::with('movie')->get();
+        $sheets = Sheet::all();
+        $movies = Movie::all();
+        return view('admin_reservations_create', compact('schedules', 'sheets', 'movies'));
+    }
+
+    public function adminReservationsStore(ReservationRequest $request, Reservation $value)
+    {
+        try {
+            $reservation = [
+                'date' => $request->date,
+                'schedule_id' => $request->schedule_id,
+                'sheet_id' => $request->sheet_id,
+                'email' => $request->email,
+                'name' => $request->name,
+            ];
+
+            $value->reserveStoreOnModel($reservation);
+
+            return redirect()
+                ->route('adminReservations')
+                ->with(['message' => '予約が完了しました']);
+        } catch (Exception $e) {
+            return redirect()
+                ->route('adminReservations')
+                ->with(['message' => 'その座席はすでに予約済みです']);
+        }
     }
 }
