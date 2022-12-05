@@ -1,13 +1,17 @@
 # 環境構築
+[スライド形式マニュアル](https://docs.google.com/presentation/d/16g_T-qrpcZx8OKeWB6QUUZFHzkfAjCp3EEJg74mE26Q/edit?usp=sharing)
 
 1. Docker Desktop
 
 上記は必ずインストールした上で始めてください。
 
-## Macにおける初期設定
+## リポジトリのFork
+1. 画面右上にあるForkをクリックします。
+2. クリックすると「Create a new fork」というページに飛ぶので、そのページにある緑色の「create fork」というボタンをクリックします。
 
+## Macにおける初期設定
 1. Terminal.app を開きます
-2. `git clone git@github.com:TechBowl-japan/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします
+2. `git clone https://github.com/{{yourGitHubID}}/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします。
 3. `cd laravel-stations` でカレントディレクトリをダウンロードしたディレクトリである `laravel-stations` に移動します。
 4. `cp .env.example .env` を実行して、 `.env` ファイルを作成します。
 5. `docker compose build --no-cache` を実行します。
@@ -17,7 +21,8 @@
 ![d161a9cadf8e80bcaa66273d3f2ee10b](https://user-images.githubusercontent.com/16362021/149891105-ef42351e-006b-4985-95dc-a8c210ef19ea.gif)
 
 6. `docker compose up -d` を実行します。
-7. `docker compose ps` というコマンドを打って次のような表示になっていれば、ひとまずOKです！
+7. `docker compose exec php-container composer install` を実行します。
+8. `docker compose ps` というコマンドを打って次のような表示になっていれば、ひとまずOKです！
 
 ![スクリーンショット 2022-05-23 11 16 39](https://user-images.githubusercontent.com/16362021/169730921-fc40f8af-b8df-4074-adad-cba13b4a2d48.png)
 
@@ -30,9 +35,6 @@
 
 ![スクリーンショット 2022-05-23 11 18 45](https://user-images.githubusercontent.com/16362021/169731216-395ab51b-85b1-4746-a825-63ae81c2a582.png)
 ![スクリーンショット 2022-05-23 11 19 44](https://user-images.githubusercontent.com/16362021/169731217-e27394e9-7f4a-46a2-b314-86c225194894.png)
-
-
-9. 最後に `docker compose exec php-container php artisan migrate:fresh --seed` を実行します。
 
 ## Windows における初期設定
 
@@ -123,18 +125,18 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 
 これらの操作を行うためには、ユーザーアカウントに[管理者権限](https://support.microsoft.com/ja-jp/windows/63267a09-9926-991a-1c77-d203160c8563)があることが前提となります。
 
-#### Git、node および yarn のインストール
+#### Gitのインストール
 
-Railway を進めるには、**Git**、**node**、**yarn**のインストールが必要です。管理者権限で起動した PowerShell に以下のコマンドを入力して、Scoop を経由してインストールしましょう：
+Railway を進めるには、**Git**のインストールが必要です。管理者権限で起動した PowerShell に以下のコマンドを入力して、Scoop を経由してインストールしましょう(すでにGitをインストールしてある場合はスキップしてください)：
 
 ```powershell
-scoop install git nodejs-lts yarn
+scoop install git
 ```
 
 #### 最後にこのリポジトリを自分のPC(ローカル環境)にダウンロード(Git Clone)します。
 
 1. PowerShell を開きます
-2. `git clone git@github.com:TechBowl-japan/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします
+2. `git clone https://github.com/{{yourGitHubID}}/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします
 3. `cd laravel-stations` でカレントディレクトリをダウンロードしたディレクトリである `laravel-stations` に移動します。
 4. `cp .env.example .env` を実行して、 `.env` ファイルを作成します。
 5. `docker compose build --no-cache` を実行します。
@@ -144,6 +146,7 @@ scoop install git nodejs-lts yarn
 ![d161a9cadf8e80bcaa66273d3f2ee10b](https://user-images.githubusercontent.com/16362021/149891105-ef42351e-006b-4985-95dc-a8c210ef19ea.gif)
 
 6. `docker compose up -d` を実行します。
+6. `docker compose exec php-container composer install` を実行します。
 7. `docker compose ps` というコマンドを打って次のような表示になっていれば、ひとまずOKです！
 
 ![スクリーンショット 2022-05-23 11 16 39](https://user-images.githubusercontent.com/16362021/169730921-fc40f8af-b8df-4074-adad-cba13b4a2d48.png)
@@ -158,9 +161,6 @@ scoop install git nodejs-lts yarn
 ![スクリーンショット 2022-05-23 11 18 45](https://user-images.githubusercontent.com/16362021/169731216-395ab51b-85b1-4746-a825-63ae81c2a582.png)
 ![スクリーンショット 2022-05-23 11 19 44](https://user-images.githubusercontent.com/16362021/169731217-e27394e9-7f4a-46a2-b314-86c225194894.png)
 
-
-9. 最後に `docker compose exec php-container php artisan migrate:fresh --seed` を実行します。
-
 # データベースの中身を確認したい場合
 
 1. http://localhost:58080/ にアクセスする
@@ -174,3 +174,43 @@ scoop install git nodejs-lts yarn
 # エラーログの確認先
 
 storage/logs/laravel.logを確認してください。
+
+# 自分のリポジトリの状態を最新の TechBowl-japan/laravel-stations と合わせる
+Forkしたリポジトリは、Fork元のリポジトリの状態を自動的に反映してくれませんため、 Stationの問題やエラーの修正などがなされておらず、自分で更新をする必要があります。 何かエラーが出た、または運営から親リポジトリを更新してくださいと伝えられた際には、こちらを試してみてください。
+
+## 準備
+```shell
+# こちらは、自分でクローンした[GitHubユーザー名]/laravel-stationsの作業ディレクトリを前提としてコマンドを用意しています。
+# 自分が何か変更した内容があれば、 stash した後に実行してください。
+git remote add upstream https://github.com/TechBowl-japan/laravel-stations.git
+git fetch upstream
+```
+これらのコマンドを実行後にうまくいっていれば、次のような表示が含まれています。
+
+```shell
+git branch -a ←このコマンドを実行
+
+* master
+  remotes/origin/HEAD -> origin/main
+  remotes/origin/main
+  remotes/upstream/main ←こちらのような upstream という文字が含まれた表示の行があれば成功です。
+```
+
+こちらで自分のリポジトリを TechBowl-japan/laravel-stations の最新の状態と合わせるための準備は終了です。
+
+## 自分のリポジトリの状態を最新に更新
+
+```shell
+# 自分の変更の状態を stash した上で次のコマンドを実行してください。
+
+# ↓main ブランチに移動するコマンド
+git checkout main
+
+# ↓ TechBowl-japan/laravel-stations の最新の状態をオンラインから取得
+git fetch upstream
+
+# ↓ 最新の状態を自分のリポジトリに入れてローカルの状態も最新へ
+git merge upstream/main
+git push
+yarn install
+```
