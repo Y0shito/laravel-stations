@@ -14,26 +14,20 @@ class ReservationController extends Controller
 {
     public function showSheets(Request $request, $movie_id, $schedule_id)
     {
-        if (empty($request->date)) {
+        $reservedDate = $request->screening_date;
+
+        if (empty($reservedDate)) {
             abort(400);
         }
-
-        $reservedDate = $request->date;
 
         $sheets = Sheet::checkReservation($schedule_id)->get();
 
         return view('reserve_sheet', compact(['sheets', 'reservedDate', 'movie_id', 'schedule_id']));
     }
 
-    // 上記だと予約日を変数に入れ、compactへ格納しているが、項目が多いと冗長になる
-    // なら複数の値が格納されているrequestをまんま変数に入れcompactへ突っ込み、view側で$変数名->movie_idの方が省コードになる？
-    // ただしここではなんの値が格納されているか不明（送られてきたrequestの大本をたどる必要がある）なため、不親切？
-    // また必要以上の値がrequestに入っており、悪意あれば引き出せてしまう？
-    // しかしviewでは$変数名->movie_idのようになんの値かはわかる
-
     public function showReserveCreate(Request $request, $movie_id, $schedule_id)
     {
-        if (empty($request->date) or empty($request->sheetId)) {
+        if (empty($request->screening_date) or empty($request->sheetId)) {
             abort(400);
         }
 
@@ -52,7 +46,7 @@ class ReservationController extends Controller
     {
         try {
             $reservation = [
-                'date' => $request->date,
+                'date' => $request->screening_date,
                 'schedule_id' => $request->schedule_id,
                 'sheet_id' => $request->sheet_id,
                 'email' => $request->email,
@@ -68,7 +62,7 @@ class ReservationController extends Controller
                 ->with(['message' => '予約が完了しました']);
         } catch (Exception $e) {
             return redirect()
-                ->route('reserveSheet', ['movie_id' => $movieId, 'schedule_id' => $request->schedule_id, 'date' => $request->date])
+                ->route('reserveSheet', ['movie_id' => $movieId, 'schedule_id' => $request->schedule_id, 'screening_date' => $request->screening_date])
                 ->with(['message' => 'その座席はすでに予約済みです']);
         }
     }

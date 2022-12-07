@@ -22,8 +22,8 @@
         <input type="hidden" name="sheet_id" value="{{ $value->sheetId }}">
         <p>座席：{{ $sheetName }}</p>
 
-        <input type="hidden" name="date" value="{{ $value->date }}">
-        <p>日付：{{ $value->date }}</p>
+        <input type="hidden" name="screening_date" value="{{ $value->screening_date }}">
+        <p>日付：{{ $value->screening_date }}</p>
 
         <div>
             <label>予約者氏名</label>

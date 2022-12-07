@@ -24,7 +24,7 @@ class ReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'date' => ['required', 'date_format:Y-m-d'],
+            'screening_date' => ['required', 'date_format:Y-m-d'],
             'schedule_id' => ['required'],
             'sheet_id' => ['required'],
             'email' => ['required', 'email'],

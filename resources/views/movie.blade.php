@@ -32,12 +32,12 @@
             </tr>
             <tr>
                 <td>{{ $schedule->start_time->format('m/d') }}</td>
-                <td>{{ $schedule->start_time->format('h:m') }}</td>
-                <td>{{ $schedule->end_time->format('h:m') }}</td>
+                <td>{{ $schedule->start_time->format('h:i') }}</td>
+                <td>{{ $schedule->end_time->format('h:i') }}</td>
                 <td>
                     <form
                         action="{{ route('reserveSheet', ['movie_id' => $movie->id, 'schedule_id' => $schedule->id]) }}">
-                        <button name="date" value="{{ $schedule->start_time->format('Y-m-d') }}">座席を予約する</button>
+                        <button name="screening_date" value="{{ $schedule->start_time->format('Y-m-d') }}">座席を予約する</button>
                     </form>
                 </td>
             </tr>

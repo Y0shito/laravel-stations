@@ -37,7 +37,7 @@
                 @endif
             @endforeach
         </div>
-        <input type="hidden" name="date" value="{{ $reservedDate }}">
+        <input type="hidden" name="screening_date" value="{{ $reservedDate }}">
     </form>
 </body>
 
