@@ -13,6 +13,7 @@ class Reservation extends Model
     use HasFactory;
 
     protected $fillable = ['screening_date', 'schedule_id', 'sheet_id', 'email', 'name', 'created_at', 'updated_at'];
+    protected $dates = ['screening_date'];
 
     public function Schedule()
     {
@@ -39,7 +40,7 @@ class Reservation extends Model
         }
     }
 
-    public function scopeNotReleases($query)
+    public function scopeWithoutReleased($query)
     {
         $query->whereDate('screening_date', '>', CarbonImmutable::now());
     }
