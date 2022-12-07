@@ -46,7 +46,7 @@ class ReservationController extends Controller
     {
         try {
             $reservation = [
-                'date' => $request->screening_date,
+                'screening_date' => $request->screening_date,
                 'schedule_id' => $request->schedule_id,
                 'sheet_id' => $request->sheet_id,
                 'email' => $request->email,
@@ -87,7 +87,7 @@ class ReservationController extends Controller
     {
         try {
             $reservation = [
-                'date' => $request->date,
+                'screening_date' => $request->screening_date,
                 'schedule_id' => $request->schedule_id,
                 'sheet_id' => $request->sheet_id,
                 'email' => $request->email,

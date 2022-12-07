@@ -42,10 +42,10 @@
 
         <div>
             <label>上映日
-                @error('date')
+                @error('screening_date')
                     <li>{{ $message }}</li>
                 @enderror
-                <input type="date" name="date" value="{{ old('date') }}">
+                <input type="date" name="screening_date" value="{{ old('screening_date') }}">
             </label>
         </div>
 

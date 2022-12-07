@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('reservations', function (Blueprint $table) {
             $table->id()->comment('ID');
-            $table->date('date')->comment('上映日');
+            $table->date('screening_date')->comment('上映日');
             $table->unsignedBigInteger('schedule_id')->comment('スケジュールID');
             $table->unsignedBigInteger('sheet_id')->comment('シートID');
             $table->string('email', 255)->comment('予約者メールアドレス');

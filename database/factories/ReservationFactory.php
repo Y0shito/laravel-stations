@@ -20,10 +20,10 @@ class ReservationFactory extends Factory
     public function definition()
     {
         $scheduleId = Schedule::select('id')->inRandomOrder()->first()->id;
-        $date = Schedule::select('start_time')->find($scheduleId)->start_time;
+        $screening_date = Schedule::select('start_time')->find($scheduleId)->start_time;
 
         return [
-            'date' => $date,
+            'screening_date' => $screening_date,
             'schedule_id' => $scheduleId,
             'sheet_id' =>  Sheet::select('id')->inRandomOrder()->first()->id,
             'email' => $this->faker->safeEmail(),
