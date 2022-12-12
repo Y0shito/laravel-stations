@@ -7,6 +7,7 @@ use App\Models\Movie;
 use App\Models\Sheet;
 use App\Models\Reservation;
 use App\Models\Schedule;
+use App\Http\Requests\AdminCreateReservationRequest;
 use App\Http\Requests\ReservationRequest;
 use Illuminate\Http\Request;
 
@@ -81,7 +82,7 @@ class ReservationController extends Controller
         return view('admin_reservations_create', compact('schedules', 'sheets', 'movies'));
     }
 
-    public function adminReservationsStore(ReservationRequest $request, Reservation $value)
+    public function adminReservationsStore(AdminCreateReservationRequest $request, Reservation $value)
     {
         try {
             $reservation = [
