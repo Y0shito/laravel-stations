@@ -24,7 +24,7 @@ class AdminCreateReservationRequest extends FormRequest
     public function rules()
     {
         return [
-            'screening_date' => ['required', 'date_format:Y-m-d'],
+            'screening_date' => ['required'],
             'movie_id' => ['required'],
             'schedule_id' => ['required'],
             'sheet_id' => ['required'],
