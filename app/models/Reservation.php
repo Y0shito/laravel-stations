@@ -44,4 +44,23 @@ class Reservation extends Model
     {
         $query->whereDate('screening_date', '>', CarbonImmutable::now());
     }
+
+    public static function ReservationDeleteOnModel($value)
+    {
+        DB::beginTransaction();
+
+        $Reservation = self::find($value->id);
+
+        if (is_null($Reservation)) {
+            return abort(404);
+        }
+
+        try {
+            self::destroy($value->id);
+            DB::commit();
+        } catch (Exception $e) {
+            DB::rollback();
+            dd($e);
+        }
+    }
 }

@@ -113,4 +113,10 @@ class ReservationController extends Controller
         $movies = Movie::all();
         return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
     }
+
+    public function reservationDelete(Request $request, Reservation $value)
+    {
+        $reservation = $value->reservationDeleteOnModel($request);
+        return back();
+    }
 }

@@ -27,6 +27,7 @@
             <th>名前</th>
             <th>メールアドレス</th>
             <th>編集</th>
+            <th>削除</th>
         </tr>
         @foreach ($reservations as $reservation)
             <tr>
@@ -43,9 +44,27 @@
                         </button>
                     </form>
                 </td>
+                <td>
+                    <form method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button onclick="return ReservationDelete();"
+                            formaction="{{ route('ReservationDelete', ['id' => $reservation->id]) }}">
+                            削除
+                        </button>
+                    </form>
+                </td>
             </tr>
         @endforeach
     </table>
 </body>
+
+<script>
+    'use strict';
+    const ReservationDelete = () => {
+        var ret = confirm("削除を実行しますか？");
+        return ret;
+    }
+</script>
 
 </html>
