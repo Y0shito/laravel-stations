@@ -33,7 +33,7 @@
                 <td>{{ $reservation->id }}</td>
                 <td>{{ $reservation->schedule->movie->title }}</td>
                 <td>{{ strtoupper($reservation->sheet->row . $reservation->sheet->column) }}</td>
-                <td>{{ $reservation->date }}</td>
+                <td>{{ $reservation->screening_date }}</td>
                 <td>{{ $reservation->name }}</td>
                 <td>{{ $reservation->email }}</td>
                 <td>

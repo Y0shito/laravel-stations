@@ -19,13 +19,16 @@ class ReservationFactory extends Factory
      */
     public function definition()
     {
-        $scheduleId = Schedule::select('id')->inRandomOrder()->first()->id;
-        $screening_date = Schedule::select('start_time')->find($scheduleId)->start_time;
+        $scheduleIds = Schedule::all()->pluck('id');
+        $sheetIds = Sheet::all()->pluck('id');
+
+        $matrix = $scheduleIds->crossJoin($sheetIds);
+        $keyPair = $this->faker->unique()->randomElement($matrix);
 
         return [
-            'screening_date' => $screening_date,
-            'schedule_id' => $scheduleId,
-            'sheet_id' =>  Sheet::select('id')->inRandomOrder()->first()->id,
+            'screening_date' => Schedule::select('start_time')->find($keyPair[0])->start_time,
+            'schedule_id' => $keyPair[0],
+            'sheet_id' =>  $keyPair[1],
             'email' => $this->faker->safeEmail(),
             'name' => $this->faker->name(),
         ];
