@@ -38,7 +38,7 @@
                 <td>{{ $reservation->email }}</td>
                 <td>
                     <form method="GET">
-                        <button formaction="">
+                        <button formaction="{{ route('adminReservationsEdit', ['id' => $reservation->id]) }}">
                             編集
                         </button>
                     </form>

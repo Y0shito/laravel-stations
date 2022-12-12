@@ -104,4 +104,13 @@ class ReservationController extends Controller
                 ->with(['message' => 'その座席はすでに予約済みです']);
         }
     }
+
+    public function showAdminReservationsEdit($id)
+    {
+        $reservation = Reservation::with('schedule.movie')->find($id);
+        $schedules = Schedule::with('movie')->get();
+        $sheets = Sheet::all();
+        $movies = Movie::all();
+        return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
+    }
 }
