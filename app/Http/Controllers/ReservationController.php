@@ -38,9 +38,10 @@ class ReservationController extends Controller
             abort(400);
         }
 
-        $getSheetName = Sheet::find($request->sheetId, ['column', 'row']);
+        $reservedMovie = Movie::find($movie_id);
+        $reservedSheet = Sheet::find($request->sheetId);
 
-        return view('reserve_create', ['value' => $request, 'sheetName' => "{$getSheetName->row}-{$getSheetName->column}"]);
+        return view('reserve_create', ['reservationDetail' => $request], compact('reservedSheet', 'reservedMovie'));
     }
 
     public function reserveStore(ReservationRequest $request, Reservation $value)
