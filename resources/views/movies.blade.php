@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Movies</title>
+    <link rel="stylesheet" href="{{ asset('css/movie.css') }}">
+    <title>StationMovies</title>
 </head>
 
 <body>
+    <header>
+        <p><a href="{{ route('index') }}">StationMovies</a></p>
+    </header>
+
     <form method="GET" action="{{ route('index') }}">
         <input type="text" name="keyword" placeholder="タイトルを入力">
         <input type="radio" name="is_showing" value="" checked>すべて
@@ -19,43 +24,44 @@
 
     <table>
         <tr>
-            <th>ID</th>
-            <th>映画タイトル</th>
-            <th>画像URL</th>
+            <th>タイトル</th>
+            <th>画像</th>
             <th>公開年</th>
-            <th>上映中かどうか</th>
+            <th>公開状況</th>
             <th>概要</th>
-            <th>登録日時</th>
-            <th>更新日時</th>
         </tr>
 
         @isset($searchedMovies)
             @foreach ($searchedMovies as $movie)
                 <tr>
-                    <td>{{ $movie->id }}</td>
-                    <td>{{ $movie->title }}</td>
+                    <td>
+                        <a href="{{ route('movie', ['id' => $movie->id]) }}">
+                            {{ $movie->title }}
+                        </a>
+                    </td>
                     <td><img src={{ $movie->image_url }} width="100"></td>
                     <td>{{ $movie->published_year }}</td>
-                    <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}<td>
+                    <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}
                     <td>{{ $movie->description }}</td>
-                    <td>{{ $movie->created_at }}</td>
-                    <td>{{ $movie->updated_at }}</td>
                 </tr>
+                </a>
             @endforeach
         @endisset
 
         @isset($movies)
             @foreach ($movies as $movie)
                 <tr>
-                    <td>{{ $movie->id }}</td>
-                    <td>{{ $movie->title }}</td>
+                    <td>
+                        <a href="{{ route('movie', ['id' => $movie->id]) }}">
+                            {{ $movie->title }}
+                        </a>
+                    </td>
                     <td><img src={{ $movie->image_url }} width="100"></td>
                     <td>{{ $movie->published_year }}</td>
-                    <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}<td>
+                    <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}
                     <td>{{ $movie->description }}</td>
-                    <td>{{ $movie->created_at }}</td>
-                    <td>{{ $movie->updated_at }}</td>
                 </tr>
+                </a>
             @endforeach
         @endisset
     </table>
