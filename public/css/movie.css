@@ -6,15 +6,3 @@ header a {
     font-weight: bold;
     text-decoration: none;
 }
-
-form {
-    margin: 16px 0px;
-}
-
-table {
-    table-layout: auto;
-}
-
-th {
-    white-space: nowrap;
-}

@@ -77,7 +77,9 @@ class MovieController extends Controller
 
     public function showMovie($id)
     {
-        $movie = Movie::with('schedules')->find($id);
+        $movie = Movie::with(['schedules' => function ($query) {
+            $query->orderBy('start_time');
+        }])->find($id);
         return view('movie', compact('movie'));
     }
 
