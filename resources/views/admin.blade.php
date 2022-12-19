@@ -5,10 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Admin</title>
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <title>管理者画面/映画一覧</title>
 </head>
 
 <body>
+    <header>
+        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/映画一覧</a></p>
+    </header>
+
     @if (session()->has('message'))
         <li>
             {{ session('message') }}
@@ -21,12 +26,10 @@
             <th>映画タイトル</th>
             <th>画像URL</th>
             <th>公開年</th>
-            <th>上映中かどうか</th>
+            <th>公開状況</th>
             <th>概要</th>
             <th>登録日時</th>
             <th>更新日時</th>
-            <th>編集</th>
-            <th>削除</th>
         </tr>
 
         @foreach ($movies as $movie)
