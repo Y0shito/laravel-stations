@@ -10,14 +10,17 @@
 </head>
 
 <body>
+    <header>
+        <p><a href="{{ route('index') }}">StationMovies</a></p>
+    </header>
+
+    <p>座席を選んでください</p>
+
     @if (session()->has('message'))
         <li>
             {{ session('message') }}
         </li>
     @endif
-
-    <h2>座席表</h2>
-    <p>座席を選んでください</p>
 
     <form method="GET">
         <div class="sheets">
