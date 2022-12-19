@@ -10,8 +10,14 @@
 
 <body>
     <h2>予約内容編集</h2>
-    <form method="POST" action="">
+    <form method="POST" action="{{ route('adminReservationUpdate', $reservation->id) }}">
+        @method('PATCH')
         @csrf
+
+        <div>
+            <label>元予約ID：{{ $reservation->id }}</label>
+            <input type="hidden" name="id" value="{{ $reservation->id }}">
+        </div>
 
         <div>
             <label>スケジュール

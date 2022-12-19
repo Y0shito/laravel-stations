@@ -114,9 +114,26 @@ class ReservationController extends Controller
         return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
     }
 
+    public function adminReservationUpdate(adminCreateReservationRequest $request, Reservation $value)
+    {
+        $reservation = [
+            'id' => $request->id,
+            'screening_date' => $request->screening_date,
+            'schedule_id' => $request->schedule_id,
+            'sheet_id' => $request->sheet_id,
+            'email' => $request->email,
+            'name' => $request->name,
+        ];
+
+        $reservation = $value->reservationUpdateOnModel($reservation);
+
+        return redirect()->route('adminReservations')
+            ->with(['message' => '予約の変更を確定しました']);
+    }
+
     public function reservationDelete(Request $request, Reservation $value)
     {
         $reservation = $value->reservationDeleteOnModel($request);
-        return back();
+        return back()->with(['message' => '予約を削除しました']);
     }
 }
