@@ -21,6 +21,10 @@ header a {
     text-decoration: none;
 }
 
+a {
+    text-decoration: none;
+}
+
 table {
     table-layout: auto;
 }

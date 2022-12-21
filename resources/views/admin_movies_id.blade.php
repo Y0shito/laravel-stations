@@ -6,12 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="{{ asset('css/admin_movies_id.css') }}">
-    <title>StationMovies/管理者画面/映画個別確認/{{ $movie->title }}</title>
+    <title>管理者画面/{{ $movie->title }}</title>
 </head>
 
 <body>
     <header>
-        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/映画個別確認</a></p>
+        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/映画一覧/{{ $movie->title }}</a></p>
+        <nav>
+            <ul>
+                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
+                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
+            </ul>
+        </nav>
     </header>
 
     <h2>{{ $movie->title }}</h2>
@@ -45,6 +51,9 @@
     </table>
     <a href="{{ route('scheduleManage', ['id' => $schedule->movie_id]) }}">
         <p>「{{ $movie->title }}」のスケジュール管理へ</p>
+    </a>
+    <a href="{{ route('edit', ['id' => $schedule->movie_id]) }}">
+        <p>「{{ $movie->title }}」の内容編集へ</p>
     </a>
 </body>
 

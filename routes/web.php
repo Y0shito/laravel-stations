@@ -33,7 +33,7 @@ Route::get('/movies/{id}', [MovieController::class, 'showMovie'])->name('movie')
 
 Route::get('/admin/movies', [MovieController::class, 'showAdmin'])->name('adminMovies');
 
-Route::get('/admin/movies/create', [MovieController::class, 'showCreate']);
+Route::get('/admin/movies/create', [MovieController::class, 'showCreate'])->name('showCreate');
 Route::post('/admin/movies/store', [MovieController::class, 'store'])->name('store');
 Route::get('/admin/movies/store', [MovieController::class, 'showStore'])->name('showStore');
 

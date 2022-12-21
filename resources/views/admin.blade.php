@@ -12,6 +12,12 @@
 <body>
     <header>
         <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/映画一覧</a></p>
+        <nav>
+            <ul>
+                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
+                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
+            </ul>
+        </nav>
     </header>
 
     @if (session()->has('message'))
@@ -42,13 +48,15 @@
                 <td>{{ $movie->title }}</td>
                 <td><img src={{ $movie->image_url }} width="100"></td>
                 <td>{{ $movie->published_year }}</td>
-                <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}<td>
+                <td>{{ $movie->is_showing == true ? '上映中' : '上映予定' }}
+                <td>
                 <td>{{ $movie->description }}</td>
                 <td>{{ $movie->created_at }}</td>
                 <td>{{ $movie->updated_at }}</td>
                 <td>
                     <form method="GET">
-                        <button value="{{ $movie->id }}" name="id" formaction="{{ route('edit', $movie->id) }}">
+                        <button value="{{ $movie->id }}" name="id"
+                            formaction="{{ route('edit', $movie->id) }}">
                             編集
                         </button>
                     </form>

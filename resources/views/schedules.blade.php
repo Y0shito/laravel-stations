@@ -5,14 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Schedules</title>
+    <link rel="stylesheet" href="{{ asset('css/schedules.css') }}">
+    <title>スケジュール一覧</title>
 </head>
 
 <body>
-    <h2>映画上映スケジュール一覧</h2>
+    <header>
+        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/スケジュール一覧</a></p>
+        <nav>
+            <ul>
+                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
+                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
+            </ul>
+        </nav>
+    </header>
 
     @foreach ($movies as $movie)
-        <h2>ID：{{ $movie->id }} {{ $movie->title }}</h2>
+        <h4>
+            <a href="{{ route('adminMovieId', ['id' => $movie->id]) }}">
+                ID:{{ $movie->id }} {{ $movie->title }}
+            </a>
+        </h4>
+        <img src={{ $movie->image_url }} width="100">
+
         <table border="1">
             <tr>
                 <th>ID</th>

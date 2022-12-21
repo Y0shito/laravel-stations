@@ -5,15 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/schedule_manage.css') }}">
     <title>{{ $movie->title }}の上映スケジュール管理</title>
 </head>
 
 <body>
-    <h2>{{ $movie->title }}の上映スケジュール管理</h2>
+    <header>
+        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/{{ $movie->title }}/上映スケジュール</a></p>
+        <nav>
+            <ul>
+                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
+                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
+            </ul>
+        </nav>
+    </header>
 
-    <a href="{{ route('scheduleCreate', $movie->id) }}">新規作成</a>
-
-    <br>
+    <h2>{{ $movie->title }}</h2>
+    <img src={{ $movie->image_url }} width="400">
 
     <table border="1">
         <tr>
@@ -23,8 +31,6 @@
             <th>終了時刻</th>
             <th>作成日時</th>
             <th>更新日時</th>
-            <th>編集</th>
-            <th>削除</th>
         </tr>
         @foreach ($movie->schedules as $schedule)
             <tr>
@@ -53,6 +59,7 @@
             </tr>
         @endforeach
     </table>
+    <a href="{{ route('scheduleCreate', $movie->id) }}">{{ $movie->title }}の上映スケジュール新規作成</a>
 </body>
 
 <script>
