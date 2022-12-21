@@ -41,6 +41,7 @@ class ScheduleController extends Controller
 
     public function showScheduleEdit(Schedule $scheduleId)
     {
+        $scheduleId->load('movie');
         return view('schedule_edit', ['schedule' => $scheduleId]);
     }
 

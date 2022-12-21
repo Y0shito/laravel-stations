@@ -5,11 +5,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/schedule_manage.css') }}">
     <title>スケジュール編集</title>
 </head>
 
 <body>
-    <h2>ID:{{ $schedule->id }}の上映スケジュール編集</h2>
+    <header>
+        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/{{ $schedule->movie->title }}/スケジュール編集</a></p>
+        <nav>
+            <ul>
+                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
+                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <h2>{{ $schedule->movie->title }}</h2>
+    <img src={{ $schedule->movie->image_url }} width="400">
 
     <form method="POST" action="{{ route('scheduleUpdate', $schedule->id) }}">
         @method('PATCH')
