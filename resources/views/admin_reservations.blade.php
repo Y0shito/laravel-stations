@@ -5,11 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="{{ asset('css/admin_reservations.css') }}">
     <title>予約一覧</title>
 </head>
 
 <body>
-    <h2>予約一覧</h2>
+    @include('components.header', ['title' => '予約一覧'])
 
     @if (session('message'))
         {{ session('message') }}
@@ -26,8 +27,6 @@
             <th>日時</th>
             <th>名前</th>
             <th>メールアドレス</th>
-            <th>編集</th>
-            <th>削除</th>
         </tr>
         @foreach ($reservations as $reservation)
             <tr>
