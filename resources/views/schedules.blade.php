@@ -10,15 +10,7 @@
 </head>
 
 <body>
-    <header>
-        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/スケジュール一覧</a></p>
-        <nav>
-            <ul>
-                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
-                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
-            </ul>
-        </nav>
-    </header>
+    @include('components.header', ['title' => '上映スケジュール一覧'])
 
     @foreach ($movies as $movie)
         <h4>

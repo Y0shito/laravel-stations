@@ -10,15 +10,7 @@
 </head>
 
 <body>
-    <header>
-        <p><a href="{{ route('adminMovies') }}">StationMovies/管理者画面/{{ $schedule->movie->title }}/スケジュール編集</a></p>
-        <nav>
-            <ul>
-                <li><a href="{{ route('showCreate') }}">映画新規入力</a></li>
-                <li><a href="{{ route('schedules') }}">スケジュール一覧</a></li>
-            </ul>
-        </nav>
-    </header>
+    @include('components.header', ['title' => "{$schedule->movie->title}/スケジュール編集"])
 
     <h2>{{ $schedule->movie->title }}</h2>
     <img src={{ $schedule->movie->image_url }} width="400">
