@@ -11,16 +11,20 @@ class MovieController extends Controller
 {
     public function index(Request $request)
     {
-        if (empty($request->keyword) && is_null($request->is_showing)) {
+        $searchWord = $request->keyword;
+
+        if (empty($searchWord) && is_null($request->is_showing)) {
             $movies = Movie::all();
             return view('movies', compact('movies'));
         }
 
         $searchedMovies = Movie::query();
 
-        if (!empty($request->keyword)) {
-            $searchedMovies->where('title', 'like', "%$request->keyword%")
-                ->orWhere('description', 'like', "%$request->keyword%");
+        if (!empty($searchWord)) {
+            $searchedMovies->where(function ($query) use ($searchWord) {
+                $query->where('title', 'like', "%$searchWord%")
+                    ->orWhere('description', 'like', "%$searchWord%");
+            });
         }
 
         if (!is_null($request->is_showing)) {
