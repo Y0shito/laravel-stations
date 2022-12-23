@@ -15,12 +15,10 @@ class Reservation extends Model
     protected $fillable = ['screening_date', 'schedule_id', 'sheet_id', 'email', 'name', 'created_at', 'updated_at'];
     protected $dates = ['screening_date'];
 
-    public function Schedule()
+    public function schedule()
     {
         return $this->belongsTo(Schedule::class);
     }
-
-    //Sが大文字になっている
 
     public function sheet()
     {

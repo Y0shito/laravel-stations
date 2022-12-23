@@ -37,13 +37,20 @@
                         @error('sheet_id')
                             <p>{{ $message }}</p>
                         @enderror
-                        <select name="sheet_id">
-                            @foreach ($sheets as $item)
-                                <option value="{{ $item->id }}">
+                        @foreach ($sheets as $item)
+                            @if ($item->reservations_count === 1)
+                                <label>
+                                    <input class="checkbox-disabled" type="checkbox" name="sheet_id"
+                                        value="{{ $item->id }}" disabled="disabled">
+                                    <span>{{ strtoupper($item->row . $item->column) }}</span>
+                                </label>
+                            @else
+                                <label>
+                                    <input type="checkbox" name="sheet_id" value="{{ $item->id }}">
                                     {{ strtoupper($item->row . $item->column) }}
-                                </option>
-                            @endforeach
-                        </select>
+                                </label>
+                            @endif
+                        @endforeach
                     </label>
                 </li>
 

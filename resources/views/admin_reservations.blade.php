@@ -17,7 +17,7 @@
     @endif
 
     <br>
-    <form action="{{ route('valueToReservationCreate') }}">
+    <form class="reservation-form" action="{{ route('valueToReservationCreate') }}">
         @csrf
         <select name="schedule_id">
             @foreach ($schedules as $item)

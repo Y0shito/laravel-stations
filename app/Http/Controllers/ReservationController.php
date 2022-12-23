@@ -79,7 +79,7 @@ class ReservationController extends Controller
     public function showReservationsCreate(Request $request)
     {
         $schedule = Schedule::with('movie')->find($request->schedule_id);
-        $sheets = Sheet::all();
+        $sheets = Sheet::checkReservation($request->schedule_id)->get();
         $movies = Movie::all();
         return view('admin_reservations_create', compact('schedule', 'sheets', 'movies'));
     }
