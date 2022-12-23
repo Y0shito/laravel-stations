@@ -17,8 +17,18 @@
     @endif
 
     <br>
+    <form action="{{ route('valueToReservationCreate') }}">
+        @csrf
+        <select name="schedule_id">
+            @foreach ($schedules as $item)
+                <option value="{{ $item->id }}">
+                    {{ "ID:{$item->id} 「{$item->movie->title}」{$item->start_time->format('Y-m-d H:i')}" }}
+                </option>
+            @endforeach
+        </select>
+        <button>このスケジュールで予約作成</button>
+    </form>
 
-    <a href="{{ route('adminReservationsCreate') }}">予約の新規作成</a>
     <table border="1">
         <tr>
             <th>予約ID</th>

@@ -24,3 +24,7 @@ header a {
 a {
     text-decoration: none;
 }
+
+form {
+    margin: 0 0 15px 0;
+}

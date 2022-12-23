@@ -12,80 +12,66 @@
 <body>
     @include('components.header', ['title' => '予約新規作成'])
 
-    <form method="POST" action="{{ route('adminReservationsStore') }}">
-        @csrf
-        <ul>
-            <li>
-                <label>スケジュール
-                    @error('schedule_id')
-                        <p>{{ $message }}</p>
-                    @enderror
-                    <select name="schedule_id">
-                        @foreach ($schedules as $item)
-                            <option value="{{ $item->id }}">
-                                {{ "ID:{$item->id} 映画:{$item->movie->title} 上映時間:{$item->start_time}" }}
-                            </option>
-                        @endforeach
-                    </select>
-                </label>
-            </li>
+    @isset($schedule)
+        <form method="POST" action="{{ route('adminReservationsStore') }}">
+            @csrf
 
-            <li>
-                <label>映画
-                    <select name="movie_id">
-                        @foreach ($movies as $item)
-                            <option value="{{ $item->id }}">
-                                {{ "映画:{$item->title}" }}
-                            </option>
-                        @endforeach
-                    </select>
-                </label>
-            </li>
+            <ul>
+                <li>
+                    <input type="hidden" name="schedule_id" value="{{ $schedule->id }}">
+                    <p>スケジュールID:{{ $schedule->id }}</p>
+                </li>
 
-            <li>
-                <label>上映日
-                    @error('screening_date')
-                        <p>{{ $message }}</p>
-                    @enderror
-                    <input type="date" name="screening_date" value="{{ old('screening_date') }}">
-                </label>
-            </li>
+                <li>
+                    <input type="hidden" name="movie_id" value="{{ $schedule->movie->id }}">
+                    <p>映画名:{{ $schedule->movie->title }}</p>
+                </li>
 
-            <li>
-                <label>座席
-                    @error('sheet_id')
-                        <p>{{ $message }}</p>
-                    @enderror
-                    <select name="sheet_id">
-                        @foreach ($sheets as $item)
-                            <option value="{{ $item->id }}">
-                                {{ strtoupper($item->row . $item->column) }}
-                            </option>
-                        @endforeach
-                    </select>
-                </label>
-            </li>
+                <li>
+                    <input type="hidden" name="screening_date" value="{{ $schedule->start_time }}">
+                    <p>上映日:{{ $schedule->start_time->format('Y-m-d H:i') }}</p>
+                </li>
 
-            <li class="input-name">
-                <label>予約者氏名
-                    @error('name')
-                        <p>{{ $message }}</p>
-                    @enderror
-                    <input type="text" name="name" placeholder="名前を入力してください" value="{{ old('name') }}">
-                </label>
-            </li>
+                <li>
+                    <label>座席
+                        @error('sheet_id')
+                            <p>{{ $message }}</p>
+                        @enderror
+                        <select name="sheet_id">
+                            @foreach ($sheets as $item)
+                                <option value="{{ $item->id }}">
+                                    {{ strtoupper($item->row . $item->column) }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </label>
+                </li>
 
-            <li class="input-email">
-                <label>メールアドレス
-                    @error('email')
-                        <p>{{ $message }}</p>
-                    @enderror
-                    <input type="text" name="email" placeholder="メールアドレスを入力してください" value="{{ old('email') }}">
-                </label>
-            </li>
-        </ul>
-        <button>予約</button>
-    </form>
+                <li class="input-name">
+                    <label>予約者氏名
+                        @error('name')
+                            <p>{{ $message }}</p>
+                        @enderror
+                        <input type="text" name="name" placeholder="名前を入力してください" value="{{ old('name') }}">
+                    </label>
+                </li>
+
+                <li class="input-email">
+                    <label>メールアドレス
+                        @error('email')
+                            <p>{{ $message }}</p>
+                        @enderror
+                        <input type="text" name="email" placeholder="メールアドレスを入力してください" value="{{ old('email') }}">
+                    </label>
+                </li>
+                <button>予約</button>
+            </ul>
+        </form>
+    @endisset
+
+    @empty($schedule)
+        <p>前の画面でスケジュールが選択されていません</p>
+    @endempty
 </body>
 
 </html>
