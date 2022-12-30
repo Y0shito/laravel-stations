@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Exception;
 use App\Models\Movie;
-use App\Models\Sheet;
+use App\Models\Screen;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Http\Requests\AdminCreateReservationRequest;
@@ -21,7 +21,7 @@ class ReservationController extends Controller
             abort(400);
         }
 
-        $sheets = Sheet::checkReservation($schedule_id)->get();
+        $sheets = Screen::checkReservation($schedule_id)->get();
 
         return view('reserve_sheet', compact(['sheets', 'reservedDate', 'movie_id', 'schedule_id']));
     }
@@ -32,14 +32,14 @@ class ReservationController extends Controller
             abort(400);
         }
 
-        $checkReserved = Sheet::checkReservation($schedule_id)->find($request->sheetId);
+        $checkReserved = Screen::checkReservation($schedule_id)->find($request->sheetId);
 
         if ($checkReserved->reservations_count === 1) {
             abort(400);
         }
 
         $reservedMovie = Movie::find($movie_id);
-        $reservedSheet = Sheet::find($request->sheetId);
+        $reservedSheet = Screen::find($request->sheetId);
 
         return view('reserve_create', ['reservationDetail' => $request], compact('reservedSheet', 'reservedMovie'));
     }
@@ -79,7 +79,7 @@ class ReservationController extends Controller
     public function showReservationsCreate(Request $request)
     {
         $schedule = Schedule::with('movie')->find($request->schedule_id);
-        $sheets = Sheet::checkReservation($request->schedule_id)->get();
+        $sheets = Screen::checkReservation($request->schedule_id)->get();
         $movies = Movie::all();
         return view('admin_reservations_create', compact('schedule', 'sheets', 'movies'));
     }
@@ -111,7 +111,7 @@ class ReservationController extends Controller
     {
         $reservation = Reservation::with('schedule.movie')->find($id);
         $schedules = Schedule::with('movie')->get();
-        $sheets = Sheet::all();
+        $sheets = Screen::all();
         $movies = Movie::all();
         return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
     }

@@ -22,7 +22,7 @@ class Reservation extends Model
 
     public function sheet()
     {
-        return $this->belongsTo(Sheet::class);
+        return $this->belongsTo(Screen::class, 'sheet_id');
     }
 
     public static function reserveStoreOnModel(array $value)

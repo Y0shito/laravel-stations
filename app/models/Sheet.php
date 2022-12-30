@@ -11,15 +11,15 @@ class Sheet extends Model
 
     public $timestamps = false;
 
-    public function reservations()
-    {
-        return $this->hasMany(Reservation::class);
-    }
+    // public function reservations()
+    // {
+    //     return $this->hasMany(Reservation::class);
+    // }
 
-    public static function checkReservation($schedule_id)
-    {
-        return self::withCount(['reservations' => function ($query) use ($schedule_id) {
-            $query->where('schedule_id', $schedule_id);
-        }]);
-    }
+    // public static function checkReservation($schedule_id)
+    // {
+    //     return self::withCount(['reservations' => function ($query) use ($schedule_id) {
+    //         $query->where('schedule_id', $schedule_id);
+    //     }]);
+    // }
 }
