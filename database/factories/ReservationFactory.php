@@ -2,9 +2,8 @@
 
 namespace Database\Factories;
 
-use App\Models\Sheet;
+use App\Models\Screen;
 use App\Models\Schedule;
-use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,7 +19,7 @@ class ReservationFactory extends Factory
     public function definition()
     {
         $scheduleIds = Schedule::all()->pluck('id');
-        $sheetIds = Sheet::all()->pluck('id');
+        $sheetIds = Screen::all()->pluck('id');
 
         $matrix = $scheduleIds->crossJoin($sheetIds);
         $keyPair = $this->faker->unique()->randomElement($matrix);
