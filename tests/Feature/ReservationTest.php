@@ -8,17 +8,22 @@ use App\Models\Reservation;
 use App\Models\Schedule;
 use Carbon\CarbonImmutable;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class ReservationTest extends TestCase
 {
     use RefreshDatabase;
+    use WithFaker;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->seed();
     }
+
+    // tests/Feature/LaravelStations/Station17/AdminReservationTest.phpより、Station18用のテストへ改修
+    // schedulesにscreen_noを追加したため、Scheduleへinsertされる箇所には'screen_no'を追加
 
     /**
      * @group station18
@@ -32,6 +37,7 @@ class ReservationTest extends TestCase
                 'screening_date' => new CarbonImmutable('2050-01-01'),
                 'schedule_id' => Schedule::insertGetId([
                     'movie_id' => $movieId,
+                    'screen_no' => $this->faker->numberBetween(1, 3),
                     'start_time' => new CarbonImmutable('2050-01-01 00:00:00'),
                     'end_time' => new CarbonImmutable('2050-01-01 02:00:00'),
                 ]),
@@ -64,6 +70,7 @@ class ReservationTest extends TestCase
                 'screening_date' => new CarbonImmutable('2020-01-01'),
                 'schedule_id' => Schedule::insertGetId([
                     'movie_id' => $movieId,
+                    'screen_no' => $this->faker->numberBetween(1, 3),
                     'start_time' => new CarbonImmutable('2020-01-01 00:00:00'),
                     'end_time' => new CarbonImmutable('2020-01-01 02:00:00'),
                 ]),
@@ -89,13 +96,12 @@ class ReservationTest extends TestCase
      */
     public function test管理者予約作成画面が表示されているか(): void
     {
+        $this->withoutExceptionHandling();
         $response = $this->get('/admin/reservations/create');
         $response->assertStatus(200);
     }
 
-    // tests/Feature/LaravelStations/Station17/AdminReservationTest.phpより、Station18用のテストへ改修
     // use文内のSheetをScreenへ、112行目のSheetをScreenへ変更
-
     /**
      * @group station18
      */
@@ -229,6 +235,7 @@ class ReservationTest extends TestCase
     {
         $scheduleId = Schedule::insertGetId([
             'movie_id' => $movieId,
+            'screen_no' => $this->faker->numberBetween(1, 3),
             'start_time' => new CarbonImmutable(),
             'end_time' => new CarbonImmutable(),
         ]);
