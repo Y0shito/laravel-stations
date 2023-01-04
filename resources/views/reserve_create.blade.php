@@ -25,6 +25,8 @@
 
         <input type="hidden" name="schedule_id" value="{{ $reservationDetail->schedule_id }}">
 
+        <p>スクリーン：{{ $reservedSheet->screen_no }}</p>
+
         <input type="hidden" name="sheet_id" value="{{ $reservationDetail->sheetId }}">
         <p>座席：{{ strtoupper($reservedSheet->row . $reservedSheet->column) }}</p>
 

@@ -22,7 +22,7 @@
         <select name="schedule_id">
             @foreach ($schedules as $item)
                 <option value="{{ $item->id }}">
-                    {{ "ID:{$item->id} 「{$item->movie->title}」{$item->start_time->format('Y-m-d H:i')}" }}
+                    {{ "ID:{$item->id}「{$item->movie->title}」スクリーン{$item->screen_no}/{$item->start_time->format('Y-m-d H:i')}" }}
                 </option>
             @endforeach
         </select>

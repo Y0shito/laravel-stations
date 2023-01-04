@@ -20,6 +20,21 @@
         <input type="hidden" name="movie_id" value="{{ $movie->id }}">
 
         <div>
+            <label>上映スクリーン
+                @error('screen_no')
+                    <li>{{ $message }}</li>
+                @enderror
+                <select name="screen_no">
+                    @for ($i = 1; $i <= 3; $i++)
+                        <option value="{{ $i }}" @if ((int) old('screen_no') === $i) selected @endif>
+                            {{ "スクリーン{$i}" }}
+                        </option>
+                    @endfor
+                </select>
+            </label>
+        </div>
+
+        <div>
             <label>開始日付
                 @error('start_time_date')
                     <li>{{ $message }}</li>

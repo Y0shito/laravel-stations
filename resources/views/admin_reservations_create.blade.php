@@ -32,6 +32,7 @@
                     <p>上映日:{{ $schedule->start_time->format('Y-m-d H:i') }}</p>
                 </li>
 
+                <p>上映スクリーン:{{ $schedule->screen_no }}</p>
                 <li>
                     <label>座席
                         @error('sheet_id')
@@ -76,9 +77,9 @@
         </form>
     @endisset
 
-    @empty($schedule)
-        <p>前の画面でスケジュールが選択されていません</p>
-    @endempty
+    @isset($error)
+        <p>{{ $error }}</p>
+    @endisset
 </body>
 
 </html>

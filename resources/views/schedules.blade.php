@@ -23,7 +23,7 @@
         <table border="1">
             <tr>
                 <th>ID</th>
-                <th>作品ID</th>
+                <th>スクリーン</th>
                 <th>開始時刻</th>
                 <th>終了時刻</th>
                 <th>作成日時</th>
@@ -32,7 +32,7 @@
             @foreach ($movie->schedules as $schedule)
                 <tr>
                     <td>{{ $schedule->id }}</td>
-                    <td>{{ $schedule->movie_id }}</td>
+                    <td>{{ $schedule->screen_no }}</td>
                     <td>{{ $schedule->start_time->format('h:m') }}</td>
                     <td>{{ $schedule->end_time->format('h:m') }}</td>
                     <td>{{ $schedule->created_at }}</td>
