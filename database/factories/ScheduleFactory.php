@@ -20,12 +20,13 @@ class ScheduleFactory extends Factory
         $rearDate = strtotime(CarbonImmutable::now()->subWeek(1));
 
         //上記の期間からランダムでstart_timeを生成、更にstart_timeの2時間後も生成
-        $startTime= rand($headDate, $rearDate);
+        $startTime = rand($headDate, $rearDate);
         $endTime = strtotime('+2 hours', $startTime);
 
         //DB挿入時にDATETIME型へ変換
         return [
             'movie_id' => Movie::select('id')->inRandomOrder()->first()->id,
+            'screen_no' => $this->faker->numberBetween(1, 3),
             'start_time' => date('Y-m-d H:i:s', $startTime),
             'end_time' => date('Y-m-d H:i:s', $endTime),
         ];

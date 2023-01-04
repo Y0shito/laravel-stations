@@ -31,6 +31,7 @@ class ScheduleController extends Controller
     {
         $schedule = [
             'movie_id' => $request->movie_id,
+            'screen_no' => $request->screen_no,
             'start_time' => "$request->start_time_date $request->start_time_time",
             'end_time' => "$request->end_time_date $request->end_time_time",
         ];
@@ -49,6 +50,7 @@ class ScheduleController extends Controller
     {
         $schedule = [
             'id' => $request->id,
+            'screen_no' => $request->screen_no,
             'start_time' => "$request->start_time_date $request->start_time_time",
             'end_time' => "$request->end_time_date $request->end_time_time",
         ];

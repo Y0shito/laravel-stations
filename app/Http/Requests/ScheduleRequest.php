@@ -25,6 +25,7 @@ class ScheduleRequest extends FormRequest
     {
         return [
             'movie_id' => ['required'],
+            'screen_no' => ['required'],
             'start_time_date' => ['required', 'date_format:Y-m-d'],
             'start_time_time' => ['required', 'date_format:H:i'],
             'end_time_date' => ['required', 'date_format:Y-m-d'],
@@ -36,6 +37,7 @@ class ScheduleRequest extends FormRequest
     {
         return [
             'movie_id.required' => 'IDに値がありません',
+            'screen_no.required' => 'スクリーンNoを入力してください',
             'start_time_date.required' => '日付を入力してください',
             'start_time_time.required' => '時間を入力してください',
             'end_time_date.required' => '日付を入力してください',
