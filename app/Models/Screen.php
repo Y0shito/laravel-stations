@@ -22,4 +22,9 @@ class Screen extends Model
             $query->where('schedule_id', $schedule_id);
         }]);
     }
+
+    public function scopeScreeningNo($query, $screenNo)
+    {
+        return $query->where('screen_no', $screenNo);
+    }
 }
