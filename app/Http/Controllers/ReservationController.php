@@ -126,6 +126,10 @@ class ReservationController extends Controller
         return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
     }
 
+    public function showAdminReservationsPreEdit(){
+        return view('admin_reservations_pre_edit');
+    }
+
     public function adminReservationUpdate(adminCreateReservationRequest $request, Reservation $value)
     {
         $reservation = [
