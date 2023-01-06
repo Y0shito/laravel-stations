@@ -62,7 +62,7 @@ Route::get('/admin/reservations', [ReservationController::class, 'showReservatio
 Route::post('/admin/reservations/create', [ReservationController::class, 'showReservationsCreate'])->name('valueToReservationCreate');
 Route::get('/admin/reservations/create', [ReservationController::class, 'showReservationsCreate'])->name('adminReservationsCreate');
 Route::post('/admin/reservations/store', [ReservationController::class, 'adminReservationsStore'])->name('adminReservationsStore');
-Route::get('/admin/reservations/{id}/pre-edit', [ReservationController::class, 'showAdminReservationsPreEdit']);
+Route::get('/admin/reservations/{id}/pre-edit', [ReservationController::class, 'showAdminReservationsPreEdit'])->name('adminReservationsPreEdit');
 Route::get('/admin/reservations/{id}/edit', [ReservationController::class, 'showAdminReservationsEdit'])->name('adminReservationsEdit');
 Route::patch('/admin/reservations/{id}', [ReservationController::class, 'adminReservationUpdate'])->name('adminReservationUpdate');
 Route::delete('/admin/reservations/{id}', [ReservationController::class, 'ReservationDelete'])->name('ReservationDelete');

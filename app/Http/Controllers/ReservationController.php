@@ -126,8 +126,12 @@ class ReservationController extends Controller
         return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
     }
 
-    public function showAdminReservationsPreEdit(){
-        return view('admin_reservations_pre_edit');
+    public function showAdminReservationsPreEdit(Reservation $id)
+    {
+        $id->load(['schedule.movie','sheet']);
+        $schedules = Schedule::with('movie')->get();
+
+        return view('admin_reservations_pre_edit', ['reservation' => $id], compact('schedules'));
     }
 
     public function adminReservationUpdate(adminCreateReservationRequest $request, Reservation $value)
