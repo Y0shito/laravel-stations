@@ -35,3 +35,7 @@ form ul li {
     width: 250px;
     height: 20px;
 }
+
+input[type="checkbox"]:disabled + span {
+    color: #ccc;
+}

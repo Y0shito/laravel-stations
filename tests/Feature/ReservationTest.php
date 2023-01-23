@@ -22,7 +22,46 @@ class ReservationTest extends TestCase
         $this->seed();
     }
 
+    private function createMovie(string $title): Movie
+    {
+        $movieId = Movie::insertGetId([
+            'title' => $title,
+            'image_url' => 'https://techbowl.co.jp/_nuxt/img/6074f79.png',
+            'published_year' => 2000,
+            'description' => '概要',
+            'is_showing' => rand(0, 1),
+        ]);
+        return Movie::find($movieId);
+    }
+
+    private function createSchedule(int $movieId): Schedule
+    {
+        $scheduleId = Schedule::insertGetId([
+            'movie_id' => $movieId,
+            'screen_no' => $this->faker->numberBetween(1, 3),
+            'start_time' => new CarbonImmutable(),
+            'end_time' => new CarbonImmutable(),
+        ]);
+        return Schedule::find($scheduleId);
+    }
+
+    private function createReservation(): array
+    {
+        $movieId = $this->createMovie('タイトル')->id;
+        $scheduleId = $this->createSchedule($movieId)->id;
+        $reservationId = Reservation::insertGetId([
+            'screening_date' => Schedule::find($scheduleId)->start_time->format('Y-m-d'),
+            'schedule_id' => $scheduleId,
+            'sheet_id' => 1,
+            'email' => 'sample@exmaple.com',
+            'name' => 'サンプル太郎',
+        ]);
+
+        return [$scheduleId, $reservationId];
+    }
+
     // tests/Feature/LaravelStations/Station17/AdminReservationTest.phpより、Station18用のテストへ改修
+    // use文およびテスト内のSheetをScreenへ
     // schedulesにscreen_noを追加したため、Scheduleへinsertされる箇所には'screen_no'を追加
 
     /**
@@ -96,12 +135,10 @@ class ReservationTest extends TestCase
      */
     public function test管理者予約作成画面が表示されているか(): void
     {
-        $this->withoutExceptionHandling();
         $response = $this->get('/admin/reservations/create');
         $response->assertStatus(200);
     }
 
-    // use文内のSheetをScreenへ、112行目のSheetをScreenへ変更
     /**
      * @group station18
      */
@@ -147,21 +184,30 @@ class ReservationTest extends TestCase
         $this->assertEquals($reservationCount, $count);
     }
 
+    // 予約内容編集画面(admin/reservations/{id}/pre-edit)を新造したため、テスト増設
     /**
      * @group station18
      */
-    public function test管理者映集予約画面が表示されているか(): void
+    public function test予約内容編集画面が表示されているか(): void
     {
-        $movieId = $this->createMovie('タイトル')->id;
-        $scheduleId = $this->createSchedule($movieId)->id;
-        $reservationId = Reservation::insertGetId([
-            'screening_date' => new CarbonImmutable(),
+        list($scheduleId, $reservationId) = $this->createReservation();
+        $response = $this->get('/admin/reservations/' . $reservationId . '/pre-edit');
+        $response->assertStatus(200);
+    }
+
+    /**
+     * @group station18
+     */
+    public function test管理者予約編集画面が表示されているか(): void
+    {
+        list($scheduleId, $reservationId) = $this->createReservation();
+
+        $response = $this->post('/admin/reservations/' . $reservationId . '/edit', [
             'schedule_id' => $scheduleId,
-            'sheet_id' => 1,
-            'email' => 'sample@exmaple.com',
-            'name' => 'サンプル太郎',
+            'name' => Reservation::find($reservationId)->name,
+            'email' => Reservation::find($reservationId)->email,
         ]);
-        $response = $this->get('/admin/reservations/' . $reservationId . '/edit');
+
         $response->assertStatus(200);
     }
 
@@ -170,18 +216,11 @@ class ReservationTest extends TestCase
      */
     public function test管理者予約編集画面で映画予約が更新されるか(): void
     {
-        $movieId = $this->createMovie('タイトル')->id;
-        $scheduleId = $this->createSchedule($movieId)->id;
-        $reservationId = Reservation::insertGetId([
-            'screening_date' => new CarbonImmutable(),
-            'schedule_id' => $scheduleId,
-            'sheet_id' => 1,
-            'email' => 'sample@exmaple.com',
-            'name' => 'サンプル太郎',
-        ]);
+        list($scheduleId, $reservationId) = $this->createReservation();
+
         $response = $this->patch('/admin/reservations/' . $reservationId, [
-            'screening_date' => new CarbonImmutable('2050-01-01'),
-            'movie_id' => $movieId,
+            'id' => $reservationId,
+            'screening_date' => Schedule::find($scheduleId)->start_time->format('Y-m-d'),
             'schedule_id' => $scheduleId,
             'sheet_id' => 2,
             'name' => 'サン太郎',
@@ -195,19 +234,14 @@ class ReservationTest extends TestCase
     }
 
     /**
-     * @group station18
+     * @group
      */
     public function test更新時Requiredバリデーションが設定されているか(): void
     {
-        $movieId = $this->createMovie('タイトル')->id;
-        $scheduleId = $this->createSchedule($movieId)->id;
-        $reservationId = Reservation::insertGetId([
-            'screening_date' => new CarbonImmutable(),
-            'schedule_id' => $scheduleId,
-            'sheet_id' => 1,
-            'email' => 'sample@exmaple.com',
-            'name' => 'サンプル太郎',
-        ]);
+        $this->withoutExceptionHandling();
+
+        list($scheduleId, $reservationId) = $this->createReservation();
+
         $response = $this->patch('/admin/reservations/' . $reservationId, [
             'movie_id' => null,
             'schedule_id' => null,
@@ -219,43 +253,12 @@ class ReservationTest extends TestCase
         $response->assertInvalid(['movie_id', 'schedule_id', 'sheet_id', 'name', 'email']);
     }
 
-    private function createMovie(string $title): Movie
-    {
-        $movieId = Movie::insertGetId([
-            'title' => $title,
-            'image_url' => 'https://techbowl.co.jp/_nuxt/img/6074f79.png',
-            'published_year' => 2000,
-            'description' => '概要',
-            'is_showing' => rand(0, 1),
-        ]);
-        return Movie::find($movieId);
-    }
-
-    private function createSchedule(int $movieId): Schedule
-    {
-        $scheduleId = Schedule::insertGetId([
-            'movie_id' => $movieId,
-            'screen_no' => $this->faker->numberBetween(1, 3),
-            'start_time' => new CarbonImmutable(),
-            'end_time' => new CarbonImmutable(),
-        ]);
-        return Schedule::find($scheduleId);
-    }
-
     /**
      * @group station18
      */
     public function test予約を削除できるか(): void
     {
-        $movieId = $this->createMovie('タイトル')->id;
-        $scheduleId = $this->createSchedule($movieId)->id;
-        $reservationId = Reservation::insertGetId([
-            'screening_date' => new CarbonImmutable(),
-            'schedule_id' => $scheduleId,
-            'sheet_id' => 1,
-            'email' => 'sample@exmaple.com',
-            'name' => 'サンプル太郎',
-        ]);
+        list($scheduleId, $reservationId) = $this->createReservation();
         $this->assertReservationCount(1);
         $response = $this->delete('/admin/reservations/' . $reservationId);
         $response->assertStatus(302);

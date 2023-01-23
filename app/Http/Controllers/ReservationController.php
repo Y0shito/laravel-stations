@@ -116,33 +116,37 @@ class ReservationController extends Controller
         }
     }
 
-    public function showAdminReservationsEdit($id)
-    {
-        $reservation = Reservation::with('schedule.movie')->find($id);
-        $schedules = Schedule::with('movie')->get();
-        $sheets = Screen::all();
-        // all()からcheckReservation()とscreeningNo()し、viewではselectで選ぶようにする
-        $movies = Movie::all();
-        return view('admin_reservations_edit', compact('schedules', 'sheets', 'movies', 'reservation'));
-    }
-
     public function showAdminReservationsPreEdit(Reservation $id)
     {
-        $id->load(['schedule.movie','sheet']);
+        $id->load(['schedule.movie', 'sheet']);
         $schedules = Schedule::with('movie')->get();
 
         return view('admin_reservations_pre_edit', ['reservation' => $id], compact('schedules'));
     }
 
-    public function adminReservationUpdate(adminCreateReservationRequest $request, Reservation $value)
+    public function showAdminReservationsEdit(Reservation $id, Request $request)
+    {
+        $reservation = $id;
+        $schedule = Schedule::with('movie')->find($request->schedule_id);
+        $sheets = Screen::checkReservation($request->schedule_id)
+            ->screeningNo(Schedule::find($request->schedule_id)->screen_no)
+            ->get();
+        $name = $request->name;
+        $email = $request->email;
+
+        return view('admin_reservations_edit', compact('reservation', 'schedule', 'sheets', 'name', 'email'));
+    }
+
+    // どこへリダイレクトしようとしているか？
+    public function adminReservationUpdate(Request $request, Reservation $value)
     {
         $reservation = [
             'id' => $request->id,
             'screening_date' => $request->screening_date,
             'schedule_id' => $request->schedule_id,
             'sheet_id' => $request->sheet_id,
-            'email' => $request->email,
             'name' => $request->name,
+            'email' => $request->email,
         ];
 
         $reservation = $value->reservationUpdateOnModel($reservation);
