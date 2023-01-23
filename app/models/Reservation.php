@@ -40,7 +40,7 @@ class Reservation extends Model
 
     public function scopeWithoutReleased($query)
     {
-        $query->whereDate('screening_date', '>', CarbonImmutable::now());
+        $query->whereDate('screening_date', '>', CarbonImmutable::yesterday());
     }
 
     public static function reservationUpdateOnModel(array $value)
