@@ -16,6 +16,7 @@
     <ul class="reservation">
         <li>予約ID:{{ $reservation->id }}</li>
         <li>スケジュールID:{{ $reservation->schedule_id }}</li>
+        <li>上映日:{{ $reservation->schedule->start_time }}</li>
         <li>映画名:{{ $reservation->schedule->movie->title }}</li>
         <li>上映スクリーン:{{ $reservation->schedule->screen_no }}</li>
         <li>座席:{{ strtoupper($reservation->sheet->row . $reservation->sheet->column) }}</li>
