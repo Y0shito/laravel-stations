@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Exception;
+use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -13,6 +15,13 @@ class Schedule extends Model
 
     protected $fillable = ['id', 'screen_no', 'movie_id', 'start_time', 'end_time'];
     protected $dates = ['start_time', 'end_time'];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('released_schedule', function (Builder $builder) {
+            $builder->whereDate('start_time', '>', CarbonImmutable::yesterday());
+        });
+    }
 
     public static function scheduleStoreOnModel(array $value)
     {
