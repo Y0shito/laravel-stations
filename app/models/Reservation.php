@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Exception;
 use Carbon\CarbonImmutable;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\DB;
@@ -14,6 +15,13 @@ class Reservation extends Model
 
     protected $fillable = ['screening_date', 'schedule_id', 'sheet_id', 'email', 'name', 'created_at', 'updated_at'];
     protected $dates = ['screening_date'];
+
+    protected static function booted()
+    {
+        static::addGlobalScope('released_reservation', function (Builder $builder) {
+            $builder->whereDate('screening_date', '>', CarbonImmutable::yesterday());
+        });
+    }
 
     public function schedule()
     {
@@ -36,11 +44,6 @@ class Reservation extends Model
             DB::rollback();
             throw new Exception($e);
         }
-    }
-
-    public function scopeWithoutReleased($query)
-    {
-        $query->whereDate('screening_date', '>', CarbonImmutable::yesterday());
     }
 
     public static function reservationUpdateOnModel(array $value)

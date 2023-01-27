@@ -74,7 +74,7 @@ class ReservationController extends Controller
 
     public function showReservations()
     {
-        $reservations = Reservation::withoutReleased()->with(['sheet', 'schedule.movie'])->get();
+        $reservations = Reservation::with(['sheet', 'schedule.movie'])->get();
         $schedules = Schedule::with('movie')->get();
         return view('admin_reservations', compact('reservations', 'schedules'));
     }
