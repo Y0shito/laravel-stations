@@ -8,6 +8,7 @@ use App\Models\Screen;
 use App\Models\Reservation;
 use App\Models\Schedule;
 use App\Http\Requests\AdminCreateReservationRequest;
+use App\Http\Requests\AdminEditReservationRequest;
 use App\Http\Requests\ReservationRequest;
 use Illuminate\Http\Request;
 
@@ -126,19 +127,16 @@ class ReservationController extends Controller
 
     public function showAdminReservationsEdit(Reservation $id, Request $request)
     {
-        $reservation = $id;
         $schedule = Schedule::with('movie')->find($request->schedule_id);
-        $sheets = Screen::checkReservation($request->schedule_id)
-            ->screeningNo(Schedule::find($request->schedule_id)->screen_no)
-            ->get();
+        $sheets = Screen::checkReservation($schedule->id)
+            ->screeningNo($schedule->screen_no)->get();
         $name = $request->name;
         $email = $request->email;
 
-        return view('admin_reservations_edit', compact('reservation', 'schedule', 'sheets', 'name', 'email'));
+        return view('admin_reservations_edit', ['reservation' => $id], compact('schedule', 'sheets', 'name', 'email'));
     }
 
-    // どこへリダイレクトしようとしているか？
-    public function adminReservationUpdate(Request $request, Reservation $value)
+    public function adminReservationUpdate(AdminEditReservationRequest $request, Reservation $value)
     {
         $reservation = [
             'id' => $request->id,

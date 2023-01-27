@@ -167,14 +167,14 @@ class ReservationTest extends TestCase
     {
         $this->assertReservationCount(0);
         $response = $this->post('/admin/reservations/store', [
-            'movie_id' => null,
+            'screening_date' => '',
             'schedule_id' => null,
             'sheet_id' => null,
             'name' => '',
             'email' => '',
         ]);
         $response->assertStatus(302);
-        $response->assertInvalid(['movie_id', 'schedule_id', 'sheet_id', 'name', 'email']);
+        $response->assertInvalid(['screening_date', 'schedule_id', 'sheet_id', 'name', 'email']);
         $this->assertReservationCount(0);
     }
 
@@ -234,23 +234,22 @@ class ReservationTest extends TestCase
     }
 
     /**
-     * @group
+     * @group station18
      */
     public function test更新時Requiredバリデーションが設定されているか(): void
     {
-        $this->withoutExceptionHandling();
-
         list($scheduleId, $reservationId) = $this->createReservation();
 
         $response = $this->patch('/admin/reservations/' . $reservationId, [
-            'movie_id' => null,
+            'id' => null,
+            'screening_date' => '',
             'schedule_id' => null,
             'sheet_id' => null,
             'name' => '',
             'email' => '',
         ]);
         $response->assertStatus(302);
-        $response->assertInvalid(['movie_id', 'schedule_id', 'sheet_id', 'name', 'email']);
+        $response->assertInvalid(['id', 'screening_date', 'schedule_id', 'sheet_id', 'name', 'email']);
     }
 
     /**
