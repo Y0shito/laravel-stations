@@ -38,6 +38,7 @@ class AdminCreateReservationRequest extends FormRequest
         return [
             'screening_date.required' => '上映日が選択されていません',
             'movie_id' => '映画が選択されていません',
+            'sheet_id.required' => '座席が選択されていません',
             'email.required' => 'メールアドレスを入力してください',
             'email.email' => '有効なメールアドレスではありません',
             'name.required' => '氏名を入力してください',
