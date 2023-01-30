@@ -90,7 +90,7 @@ class ReservationTest extends TestCase
 
         $reservations = Reservation::all();
         foreach ($reservations as $reservation) {
-            $response->assertSee($reservation->screening_date);
+            $response->assertSee($reservation->screening_date->format('Y-m-d'));
             $response->assertSee($reservation->name);
             $response->assertSee($reservation->email);
             $response->assertSee(strtoupper($reservation->sheet->row . $reservation->sheet->column));

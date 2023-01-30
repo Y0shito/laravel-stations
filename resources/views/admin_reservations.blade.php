@@ -33,6 +33,7 @@
         <tr>
             <th>予約ID</th>
             <th>作品名</th>
+            <th>上映スクリーン</th>
             <th>座席</th>
             <th>日時</th>
             <th>名前</th>
@@ -42,8 +43,9 @@
             <tr>
                 <td>{{ $reservation->id }}</td>
                 <td>{{ $reservation->schedule->movie->title }}</td>
+                <td>{{ $reservation->schedule->screen_no }}</td>
                 <td>{{ strtoupper($reservation->sheet->row . $reservation->sheet->column) }}</td>
-                <td>{{ $reservation->screening_date }}</td>
+                <td>{{ $reservation->screening_date->format('Y-m-d') }}</td>
                 <td>{{ $reservation->name }}</td>
                 <td>{{ $reservation->email }}</td>
                 <td>
