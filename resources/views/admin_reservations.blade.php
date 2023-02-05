@@ -16,6 +16,11 @@
         {{ session('message') }}
     @endif
 
+    @if ($errors->has('sheet_id'))
+        <p>以下の理由により、編集を保存出来ませんでした</p>
+        <li>{{ $errors->first('sheet_id') }}</li>
+    @endif
+
     <br>
     <form class="reservation-form" action="{{ route('valueToReservationCreate') }}">
         @csrf

@@ -51,8 +51,4 @@ class AdminEditReservationRequest extends FormRequest
     {
         return route('adminReservations');
     }
-
-    // route()の前にredirect()をつけないとwith()をつけられない（「予約更新に失敗」メッセージを載せたい）
-    // だがredirect()を頭に入れるとエラーが出る
-    // しかしルートパラメータもここでは取得できず、pre-editにも戻せない
 }
