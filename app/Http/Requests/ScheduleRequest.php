@@ -28,8 +28,8 @@ class ScheduleRequest extends FormRequest
             'screen_no' => ['required'],
             'start_time_date' => ['required', 'date_format:Y-m-d'],
             'start_time_time' => ['required', 'date_format:H:i'],
-            'end_time_date' => ['required', 'date_format:Y-m-d'],
-            'end_time_time' => ['required', 'date_format:H:i'],
+            'end_time_date' => ['required', 'date_equals:start_time_date', 'date_format:Y-m-d'],
+            'end_time_time' => ['required', 'after:start_time_time', 'date_format:H:i'],
         ];
     }
 
@@ -41,7 +41,12 @@ class ScheduleRequest extends FormRequest
             'start_time_date.required' => '日付を入力してください',
             'start_time_time.required' => '時間を入力してください',
             'end_time_date.required' => '日付を入力してください',
+            'end_time_date.date_equals' => '公開日が一致しません',
             'end_time_time.required' => '時間を入力してください',
+            'end_time_time.after' => '開始時間より後の時間を指定してください',
         ];
     }
+
+    // スクリーンに同時刻に上映される映画は重複しないように
+    // 別スクリーンでも同じ映画は同時刻に上映させない
 }
