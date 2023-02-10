@@ -72,4 +72,30 @@ class Schedule extends Model
     {
         return $this->belongsTo(Movie::class);
     }
+
+    public static function isDuplicate($screen_no, $start_time, $end_time)
+    {
+        if (self::withoutGlobalScope('released_schedule')
+            ->where('screen_no', $screen_no)
+            ->where('start_time', '<=', $end_time)
+            ->where('end_time', '>=', $start_time)
+            ->exists()
+        ) {
+            return true;
+        }
+        return false;
+    }
+
+    public static function isSameMovie($movie_id, $start_time, $end_time)
+    {
+        if (self::withoutGlobalScope('released_schedule')
+            ->where('start_time', '<=', $end_time)
+            ->where('end_time', '>=', $start_time)
+            ->where('movie_id', $movie_id)
+            ->exists()
+        ) {
+            return true;
+        }
+        return false;
+    }
 }

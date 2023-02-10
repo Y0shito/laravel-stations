@@ -15,6 +15,10 @@
     <h2>{{ $movie->title }}</h2>
     <img src={{ $movie->image_url }} width="400">
 
+    @error('message')
+        <li>{{ $message }}</li>
+    @enderror
+
     <form method="POST" action="{{ route('scheduleStore', $movie->id) }}">
         @csrf
         <input type="hidden" name="movie_id" value="{{ $movie->id }}">
