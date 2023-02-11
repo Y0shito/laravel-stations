@@ -29,27 +29,11 @@ class ScheduleController extends Controller
 
     public function scheduleStore(ScheduleRequest $request, Schedule $value)
     {
-        //ここから
-        $start_time = "$request->start_time_date $request->start_time_time";
-        $end_time = "$request->end_time_date $request->end_time_time";
-
-        $isDuplicate = Schedule::isDuplicate($request->screen_no, $start_time, $end_time);
-        $isSameMovie = Schedule::isSameMovie($request->movie_id, $start_time, $end_time);
-
-        if ($isDuplicate) {
-            return redirect()->back()->withInput()->withErrors(['message' => '他のスケジュールと重複しています']);
-        }
-
-        if ($isSameMovie) {
-            return redirect()->back()->withInput()->withErrors(['message' => '指定時間帯に同じ映画が重複しています']);
-        }
-        //ここまでをカスタムバリデーターに入れる
-
         $schedule = [
             'movie_id' => $request->movie_id,
             'screen_no' => $request->screen_no,
-            'start_time' => $start_time,
-            'end_time' => $end_time,
+            'start_time' => "{$request->start_time_date} {$request->start_time_time}",
+            'end_time' => "{$request->end_time_date} {$request->end_time_time}",
         ];
 
         $schedule = $value->scheduleStoreOnModel($schedule);
@@ -64,20 +48,6 @@ class ScheduleController extends Controller
 
     public function scheduleUpdate(ScheduleRequest $request, Schedule $value)
     {
-        $start_time = "$request->start_time_date $request->start_time_time";
-        $end_time = "$request->end_time_date $request->end_time_time";
-
-        $isDuplicate = Schedule::isDuplicate($request->screen_no, $start_time, $end_time);
-        $isSameMovie = Schedule::isSameMovie($request->movie_id, $start_time, $end_time);
-
-        if ($isDuplicate) {
-            return redirect()->back()->withInput()->withErrors(['message' => '他のスケジュールと重複しています']);
-        }
-
-        if ($isSameMovie) {
-            return redirect()->back()->withInput()->withErrors(['message' => '指定時間帯に同じ映画が重複しています']);
-        }
-
         $schedule = [
             'id' => $request->id,
             'screen_no' => $request->screen_no,

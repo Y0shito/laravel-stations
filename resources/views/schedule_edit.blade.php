@@ -15,10 +15,6 @@
     <h2>{{ $schedule->movie->title }}</h2>
     <img src={{ $schedule->movie->image_url }} width="400">
 
-    @error('message')
-        <li>{{ $message }}</li>
-    @enderror
-
     <form method="POST" action="{{ route('scheduleUpdate', $schedule->id) }}">
         @method('PATCH')
         @csrf
