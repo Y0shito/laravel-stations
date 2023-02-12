@@ -14,7 +14,7 @@
         <p><a href="{{ route('index') }}">StationMovies</a></p>
     </header>
 
-    <form method="POST" action="">
+    <form method="POST" action="{{route('register')}}">
         @csrf
 
         <div class="input-name">
