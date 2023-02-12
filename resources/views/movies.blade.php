@@ -14,6 +14,10 @@
         <p><a href="{{ route('index') }}">StationMovies</a></p>
     </header>
 
+    @if (session('message'))
+        {{ session('message') }}
+    @endif
+
     <form method="GET" action="{{ route('index') }}">
         <input type="text" name="keyword" placeholder="タイトルを入力">
         <input type="radio" name="is_showing" value="" checked>すべて

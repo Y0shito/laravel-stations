@@ -83,3 +83,4 @@ Route::patch('/admin/reservations/{id}', [ReservationController::class, 'adminRe
 Route::delete('/admin/reservations/{id}', [ReservationController::class, 'ReservationDelete'])->name('ReservationDelete');
 
 Route::get('/users/create',[UserController::class,'showSignInPage'])->name('signIn');
+Route::post('/users/create',[UserController::class,'userRegister'])->name('register');
