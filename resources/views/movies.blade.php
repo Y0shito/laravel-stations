@@ -10,9 +10,7 @@
 </head>
 
 <body>
-    <header>
-        <p><a href="{{ route('index') }}">StationMovies</a></p>
-    </header>
+    @include('components.user_header')
 
     @if (session('message'))
         {{ session('message') }}
