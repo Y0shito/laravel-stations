@@ -7,6 +7,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\ReservationController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SheetController;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -80,3 +81,5 @@ Route::post('/admin/reservations/{id}/edit', [ReservationController::class, 'sho
 Route::get('/admin/reservations/{id}/edit', [ReservationController::class, 'showAdminReservationsEdit']);
 Route::patch('/admin/reservations/{id}', [ReservationController::class, 'adminReservationUpdate'])->name('adminReservationUpdate');
 Route::delete('/admin/reservations/{id}', [ReservationController::class, 'ReservationDelete'])->name('ReservationDelete');
+
+Route::get('/users/create',[UserController::class,'showSignInPage'])->name('signIn');
