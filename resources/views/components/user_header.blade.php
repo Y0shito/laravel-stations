@@ -4,6 +4,7 @@
         <ul>
             @if (Auth::check())
                 <li><a href="">マイページ</a></li>
+                <li><a href="{{ route('logoutProcess')}}">ログアウト</a></li>
             @else
                 <li><a href="{{ route('showLogIn') }}">ログイン</a></li>
                 <li><a href="{{ route('signIn') }}">サインイン</a></li>

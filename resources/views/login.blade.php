@@ -14,7 +14,12 @@
         <p><a href="{{ route('index') }}">StationMovies</a></p>
     </header>
 
-    <form method="POST" action="{{ route('loginProcess')}}">
+
+    @if (session('message'))
+        {{ session('message') }}
+    @endif
+
+    <form method="POST" action="{{ route('loginProcess') }}">
         @csrf
 
         <div class="input-email">

@@ -34,7 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 
 Route::get('/practice', [PracticeController::class, 'sample']);
 Route::get('/practice2', [PracticeController::class, 'sample2']);
@@ -82,5 +82,12 @@ Route::get('/admin/reservations/{id}/edit', [ReservationController::class, 'show
 Route::patch('/admin/reservations/{id}', [ReservationController::class, 'adminReservationUpdate'])->name('adminReservationUpdate');
 Route::delete('/admin/reservations/{id}', [ReservationController::class, 'ReservationDelete'])->name('ReservationDelete');
 
-Route::get('/users/create',[UserController::class,'showSignInPage'])->name('signIn');
-Route::post('/users/create',[UserController::class,'userRegister'])->name('register');
+Route::get('/users/create', [UserController::class, 'showSignInPage'])->name('signIn');
+Route::post('/users/create', [UserController::class, 'userRegister'])->name('register');
+
+Route::get('/users/login', [UserController::class, 'showLogInPage'])->name('showLogIn');
+Route::get('/users/logout', [UserController::class, 'logoutProcess'])->name('logoutProcess');
+
+Route::post('/users/login', [UserController::class, 'loginProcess'])->name('loginProcess');
+
+// Route::get('/users/{id}',[UserController::class,'showMypage'])->name('mypage');
