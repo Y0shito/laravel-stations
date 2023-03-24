@@ -7,6 +7,7 @@ use App\Models\Movie;
 use App\Models\Screen;
 use App\Models\Reservation;
 use App\Models\Schedule;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AdminCreateReservationRequest;
 use App\Http\Requests\AdminEditReservationRequest;
 use App\Http\Requests\ReservationRequest;
@@ -31,20 +32,23 @@ class ReservationController extends Controller
 
     public function showReserveCreate(Request $request, $movie_id, $schedule_id)
     {
-        if (empty($request->screening_date) or empty($request->sheetId)) {
-            abort(400);
+        if (Auth::check()) {
+            if (empty($request->screening_date) or empty($request->sheetId)) {
+                abort(400);
+            }
+
+            $checkReserved = Screen::checkReservation($schedule_id)->find($request->sheetId);
+
+            if ($checkReserved->reservations_count === 1) {
+                abort(400);
+            }
+
+            $reservedMovie = Movie::find($movie_id);
+            $reservedSheet = Screen::find($request->sheetId);
+
+            return view('reserve_create', ['reservationDetail' => $request], compact('reservedSheet', 'reservedMovie'));
         }
-
-        $checkReserved = Screen::checkReservation($schedule_id)->find($request->sheetId);
-
-        if ($checkReserved->reservations_count === 1) {
-            abort(400);
-        }
-
-        $reservedMovie = Movie::find($movie_id);
-        $reservedSheet = Screen::find($request->sheetId);
-
-        return view('reserve_create', ['reservationDetail' => $request], compact('reservedSheet', 'reservedMovie'));
+        return back();
     }
 
     public function reserveStore(ReservationRequest $request, Reservation $value)
